@@ -41,6 +41,8 @@ src/
 │ ├─ MapPage.jsx # Main page with React Flow graph
 ├─ styles/
 │ ├─ style.css # Global styles
+│ ├─ SidePanel.css
+│ ├─ GenreNode.css
 ```
 
 ## Getting Started
@@ -62,5 +64,30 @@ npm install
 
 # Start the development server
 npm run dev
+
+Open http://localhost:5173 in your browser.
+```
+How to Use:
+
+•Hover over a node to see a tooltip with era, origin, description, and artists.
+
+•Click a node to open a side panel for more detailed information.
+
+•Pan & Zoom the map using mouse or touch gestures.
+
+•MiniMap helps navigate large graphs.
+
+
+Future Improvements:
+
+•Add dynamic API integration (Spotify, Last.fm) for live data
+
+•Allow filtering by era, origin, or artist
+
+•Add animations for edges
+
+•Responsive design for mobile/tablet screens
+
+
 
 
