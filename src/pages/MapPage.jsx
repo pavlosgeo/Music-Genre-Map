@@ -1,3 +1,4 @@
+// MapPage.jsx
 import React, { useState, useMemo } from 'react';
 import ReactFlow, { MiniMap, Controls, Background } from 'reactflow';
 import 'reactflow/dist/style.css';
@@ -17,12 +18,16 @@ const getLayoutedElements = (nodes, edges) => {
   dagreGraph.setDefaultEdgeLabel(() => ({}));
   dagreGraph.setGraph({ rankdir: 'LR' });
 
-  nodes.forEach((node) => dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight }));
-  edges.forEach((edge) => dagreGraph.setEdge(edge.source, edge.target));
+  // Only layout nodes without manual positions
+  nodes.forEach((node) => {
+    if (!node.position) dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
+  });
 
+  edges.forEach((edge) => dagreGraph.setEdge(edge.source, edge.target));
   dagre.layout(dagreGraph);
 
   const positionedNodes = nodes.map((node) => {
+    if (node.position) return node; // keep manual positions
     const nodeWithPosition = dagreGraph.node(node.id);
     return {
       ...node,
@@ -37,7 +42,7 @@ export default function MapPage() {
   const [selectedGenre, setSelectedGenre] = useState(null);
 
   const rawNodes = useMemo(
-    () => genres.map((g) => ({ id: g.id, type: 'genre', data: { label: g.name, genre: g } })),
+    () => genres.map((g) => ({ id: g.id, type: 'genre', data: { label: g.name, genre: g, onClick: () => setSelectedGenre(g) } })),
     []
   );
 
@@ -48,26 +53,14 @@ export default function MapPage() {
 
   const { nodes, edges } = useMemo(() => getLayoutedElements(rawNodes, rawEdges), [rawNodes, rawEdges]);
 
-  const onNodeClick = (node) => {
-  console.log('Clicked node:', node);
-  setSelectedGenre(node.data.genre);
-};
-
   return (
     <div style={{ width: '100%', height: '100vh', display: 'flex' }}>
       <div className="reactflow-wrapper" style={{ flex: 1 }}>
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          nodeTypes={nodeTypes}
-          onNodeClick={onNodeClick}
-          fitView
-        >
+        <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} fitView>
           <MiniMap />
           <Controls />
           <Background color="#aaa" gap={16} />
         </ReactFlow>
-
       </div>
 
       <SidePanel genre={selectedGenre} onClose={() => setSelectedGenre(null)} />

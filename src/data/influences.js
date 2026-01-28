@@ -11,6 +11,6 @@ export const influences = [
   { id: 'e3', source: 'house', target: 'breakbeat' },
   { id: 'e4', source: 'techno', target: 'industrial' },
 
-- // Cross influence
-- { id: 'cross1', source: 'alternative', target: 'house' },
+  // Cross influence
+  // { id: 'cross1', source: 'alternative', target: 'house' },
 ];

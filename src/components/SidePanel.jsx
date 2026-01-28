@@ -1,12 +1,12 @@
 import React from 'react';
-import '../styles/SidePanel.css';
+import '../styles/style.css';
 
 export default function SidePanel({ genre, onClose }) {
   if (!genre) return null;
 
   return (
     <div className="side-panel">
-      <button className="close-btn" onClick={onClose}>×</button>
+      <button onClick={onClose} className="close-btn">X</button>
       <h2>{genre.name}</h2>
       <p><strong>Era:</strong> {genre.era}</p>
       <p><strong>Origin:</strong> {genre.origin}</p>
