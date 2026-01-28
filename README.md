@@ -3,7 +3,6 @@
 An **interactive music genre map** built with **React**, **React Flow**, and **Dagre**.  
 Explore relationships between rock and electronic genres, view their history, origin, and notable artists.  
 
-![Music Genre Map Screenshot](./screenshot.png) <!-- Optional, add if you have a screenshot -->
 
 ---
 
