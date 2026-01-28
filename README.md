@@ -57,7 +57,7 @@ src/
 
 ```bash
 # Clone the repo
-git clone <your-repo-url>
+git clone <https://github.com/pavlosgeo/Music-Genre-Map>
 cd music-genre-map
 
 # Install dependencies
