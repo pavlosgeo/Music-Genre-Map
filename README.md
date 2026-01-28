@@ -1,16 +1,74 @@
-# React + Vite
+# Music Genre Map
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An **interactive music genre map** built with **React**, **React Flow**, and **Dagre**.  
+Explore relationships between rock and electronic genres, view their history, origin, and notable artists.  
 
-Currently, two official plugins are available:
+![Music Genre Map Screenshot](./screenshot.png) <!-- Optional, add if you have a screenshot -->
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Interactive graph** of music genres
+  - Nodes represent genres (Rock, Electronic, etc.)
+  - Edges show influences and connections
+- **Hover over nodes** to see genre details: era, origin, description, and artists
+- **Click a node** to open a side panel with extended information
+- **Automatic layout** using **Dagre** (left-to-right layout)
+- **MiniMap, Controls, and Background** for better navigation
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+- **Frontend**: React, React Flow, JavaScript  
+- **Graph layout**: Dagre  
+- **Styling**: CSS modules  
+- **Data**: Local JSON-like structures for genres and influences  
+
+---
+
+## Project Structure
+src/
+├─ components/
+│ ├─ GenreNode.jsx # Custom node for React Flow
+│ ├─ SidePanel.jsx # Side panel showing genre details
+├─ data/
+│ ├─ genres.js # Genre dataset
+│ ├─ influences.js # Genre influence connections
+├─ pages/
+│ ├─ MapPage.jsx # Main page with React Flow graph
+├─ styles/
+│ ├─ style.css # Global styles
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (>= 16)
+- npm (>= 8)
+
+### Installation
+
+```bash
+# Clone the repo
+git clone <your-repo-url>
+cd music-genre-map
+
+# Install dependencies
+npm install
+
+# Start the dev server
+npm run dev
+Open http://localhost:5173 in your browser.
+
+Future Improvements
+
+Add dynamic API integration (Spotify, Last.fm) for live data
+
+Allow filtering by era, origin, or artist
+
+Add animations for edges
+
+Responsive design for mobile/tablet screens
