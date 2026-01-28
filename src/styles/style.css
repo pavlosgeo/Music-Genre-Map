@@ -1,3 +1,4 @@
+@import "tailwindcss";
 
 /* Root body and html - ensures full height */
 html,
@@ -22,9 +23,10 @@ body,
   width: 300px;
   padding: 16px;
   background-color: #1e1e1e; /* dark panel for contrast */
-  color: #fff;
+  color: #a30505;
   overflow-y: auto;
   box-shadow: -2px 0 6px rgba(0, 0, 0, 0.2);
+   z-index: 10;
 }
 
 /* Side panel headings and paragraphs */
@@ -58,4 +60,8 @@ body,
 .react-flow__minimap {
   bottom: 10px;
   left: 10px;
+}
+
+.react-flow__handle {
+  pointer-events: auto;
 }

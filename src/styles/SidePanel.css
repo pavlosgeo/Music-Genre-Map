@@ -1,0 +1,32 @@
+.side-panel {
+  width: 300px;
+  padding: 16px;
+  background-color: #1e1e1e;
+  color: #fff;
+  overflow-y: auto;
+  box-shadow: -2px 0 6px rgba(0,0,0,0.3);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.side-panel h2 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 1.4rem;
+}
+
+.side-panel p {
+  margin: 4px 0;
+  line-height: 1.4;
+}
