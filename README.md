@@ -29,6 +29,7 @@ Explore relationships between rock and electronic genres, view their history, or
 ---
 
 ## Project Structure
+
 src/
 ├─ components/
 │ ├─ GenreNode.jsx # Custom node for React Flow
@@ -40,7 +41,6 @@ src/
 │ ├─ MapPage.jsx # Main page with React Flow graph
 ├─ styles/
 │ ├─ style.css # Global styles
----
 
 ## Getting Started
 
