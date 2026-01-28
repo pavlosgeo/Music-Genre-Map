@@ -28,20 +28,19 @@ Explore relationships between rock and electronic genres, view their history, or
 
 ---
 
-## Project Structure
+### Project Structure
 
 src/
 ├─ components/
-│ ├─ GenreNode.jsx # Custom node for React Flow
-│ ├─ SidePanel.jsx # Side panel showing genre details
+│  ├─ GenreNode.jsx       # Custom node for React Flow
+│  ├─ SidePanel.jsx       # Side panel showing genre details
 ├─ data/
-│ ├─ genres.js # Genre dataset
-│ ├─ influences.js # Genre influence connections
+│  ├─ genres.js           # Genre dataset
+│  ├─ influences.js       # Genre influence connections
 ├─ pages/
-│ ├─ MapPage.jsx # Main page with React Flow graph
+│  ├─ MapPage.jsx         # Main page with React Flow graph
 ├─ styles/
-│ ├─ style.css # Global styles
-
+│  ├─ style.css           # Global styles
 ## Getting Started
 
 ### Prerequisites
