@@ -59,16 +59,7 @@ cd music-genre-map
 # Install dependencies
 npm install
 
-# Start the dev server
+# Start the development server
 npm run dev
-Open http://localhost:5173 in your browser.
 
-Future Improvements
 
-Add dynamic API integration (Spotify, Last.fm) for live data
-
-Allow filtering by era, origin, or artist
-
-Add animations for edges
-
-Responsive design for mobile/tablet screens
