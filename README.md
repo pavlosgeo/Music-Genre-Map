@@ -14,7 +14,7 @@ Explore relationships between rock and electronic genres, view their history, or
   - Nodes represent genres (Rock, Electronic, etc.)
   - Edges show influences and connections
 - **Hover over nodes** to see genre details: era, origin, description, and artists
-- Dynamic Backgrounds: Each genre shows a background image fetched from Unsplash.
+- **Dynamic Backgrounds** Each genre shows a background image fetched from Unsplash.
 - **Click a node** to open a side panel with extended information
 - **Automatic layout** using **Dagre** (left-to-right layout)
 - **MiniMap, Controls, and Background** for better navigation
