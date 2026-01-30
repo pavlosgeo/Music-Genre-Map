@@ -1,13 +1,16 @@
 .side-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
   width: 500px;
+  height: 100%;
   padding: 16px;
   background-color: #301934;
   color: #fff;
   overflow-y: auto;
   box-shadow: -2px 0 6px rgba(0,0,0,0.3);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  position: absolute;
-  z-index: 999;
+  z-index: 999;  
 }
 
 .close-btn {
