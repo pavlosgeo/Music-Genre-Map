@@ -9,12 +9,15 @@ const familyColors = {
 };
 
 export default function GenreNode({ data }) {
-  const { genre } = data;
+  const { genre, onClick } = data;
 
   return (
     <div
       className="genre-node"
-      onClick={() => data.onClick && data.onClick(genre)}
+      onClick={(event) => {
+        event.stopPropagation(); // important to allow React Flow clicks
+        onClick && onClick(genre);
+      }}
       style={{
         padding: '10px 16px',
         borderRadius: '8px',
@@ -33,7 +36,7 @@ export default function GenreNode({ data }) {
       <Handle type="target" position={Position.Top} style={{ background: '#555' }} />
       <Handle type="source" position={Position.Bottom} style={{ background: '#555' }} />
 
-      {/* Tooltip */}
+      {/* Tooltip on hover */}
       <div className="tooltip">
         <p><strong>Era:</strong> {genre.era}</p>
         <p><strong>Origin:</strong> {genre.origin}</p>

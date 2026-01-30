@@ -37,7 +37,7 @@ export const genres = [
     era: '1960s-present',
     origin: 'UK/USA',
     description: 'Guitar-driven music with powerful riffs, intense drums, and high energy, often exploring dark, epic, or rebellious themes.',
-    artists: ['Iron Maiden', 'Iron Maiden', 'Black Sabbath'],
+    artists: ['Iron Maiden', 'Metallica', 'Black Sabbath'],
     position: { x: 50, y: 400 },
   },
   {
