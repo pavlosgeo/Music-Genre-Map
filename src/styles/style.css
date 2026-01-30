@@ -44,24 +44,3 @@ body,
   box-shadow: 0 4px 6px rgba(0,0,0,0.3);
 }
 
-.side-panel {
-  font-size: 28px;
-  width: 300px;
-  padding: 16px;
-  background-color: #1e1e1e;
-  color: #fff;
-  overflow-y: auto;
-  box-shadow: -2px 0 6px rgba(0,0,0,0.3);
-  z-index: 10;
-}
-
-.close-btn {
-  float: right;
-  background: #ff4d4d;
-  border: none;
-  color: #fff;
-  padding: 4px 8px;
-  cursor: pointer;
-  border-radius: 4px;
-  margin-bottom: 8px;
-}

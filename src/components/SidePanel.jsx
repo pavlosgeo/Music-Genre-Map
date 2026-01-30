@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/style.css';
+import '../styles/SidePanel.css';
 
 export default function SidePanel({ genre, onClose }) {
   if (!genre) return null;

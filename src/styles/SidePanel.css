@@ -1,7 +1,7 @@
 .side-panel {
-  width: 300px;
+  width: 500px;
   padding: 16px;
-  background-color: #1e1e1e;
+  background-color: #301934;
   color: #fff;
   overflow-y: auto;
   box-shadow: -2px 0 6px rgba(0,0,0,0.3);
@@ -11,22 +11,58 @@
 
 .close-btn {
   position: absolute;
-  top: 8px;
-  right: 12px;
+  top: 1px;
+  right: 2px;
   background: none;
   border: none;
   color: #fff;
-  font-size: 1.4rem;
+  font-size: 2rem;
   cursor: pointer;
 }
 
-.side-panel h2 {
-  margin-top: 0;
-  margin-bottom: 8px;
-  font-size: 1.4rem;
+.genre-title {
+  font-size: 2.5rem;
+  font-weight: 600;
 }
 
-.side-panel p {
-  margin: 4px 0;
-  line-height: 1.4;
+.genre-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.meta-label {
+  font-weight: 600;
+  color: #111;
+}
+
+.genre-description {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.section-label {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #777;
+}
+
+.artist-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px; /* spacing instead of commas */
+}
+
+.artist-tag {
+  background: #2b2b2b;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 1.4rem;
 }
