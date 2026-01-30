@@ -1,48 +1,129 @@
+/* src/styles/genrenode.css */
+
+/* Base node style */
 .genre-node {
-  padding: 10px 16px;
-  border-radius: 8px;
+  padding: 14px 28px;
+  border-radius: 18px;
   color: #fff;
   font-weight: bold;
   text-align: center;
-  position: relative; /* tooltip positioning */
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-  transition: transform 0.2s, box-shadow 0.2s;
-  pointer-events: auto; /* make sure hover/click works */
+  position: relative;
+  min-width: 140px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: transform 0.25s, box-shadow 0.25s;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+  background-size: 200% 200%;
+  border: 1px solid rgba(255,255,255,0.1);
+  overflow: hidden;
 }
 
+/* Hover: scale + glow */
 .genre-node:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  transform: scale(1.06);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.35), 0 0 12px rgba(255,255,255,0.1) inset;
 }
 
-/* Tooltip */
-.genre-node .tooltip {
+/* Gradient shift animation */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Inner overlay gradient for subtle light effect */
+.genre-node::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: linear-gradient(to bottom right, rgba(255,255,255,0.08), rgba(0,0,0,0.08));
+  pointer-events: none;
+}
+
+/* Gradient backgrounds per genre */
+.gradient-rock {
+  background: linear-gradient(135deg, #ff6b6b, #ff5252, #ff1744);
+  animation: gradientShift 6s ease infinite;
+}
+
+.gradient-punk {
+  background: linear-gradient(135deg, #ff3e3e, #ff5252, #ff7f7f);
+  animation: gradientShift 7s ease infinite;
+}
+
+.gradient-metal {
+  background: linear-gradient(135deg, #8b0000, #c1121f, #ff2e2e);
+  animation: gradientShift 8s ease infinite;
+}
+
+.gradient-alternative {
+  background: linear-gradient(135deg, #ff6b6b, #ffbaba, #ff5c5c);
+  animation: gradientShift 9s ease infinite;
+}
+
+.gradient-electronic {
+  background: linear-gradient(135deg, #4d79ff, #6b5cff, #8c54ff);
+  animation: gradientShift 5s ease infinite;
+}
+
+.gradient-house {
+  background: linear-gradient(135deg, #1e90ff, #4da6ff, #80c1ff);
+  animation: gradientShift 6.5s ease infinite;
+}
+
+.gradient-techno {
+  background: linear-gradient(135deg, #3f51b5, #5c6bc0, #7986cb);
+  animation: gradientShift 7.2s ease infinite;
+}
+
+.gradient-breakbeat {
+  background: linear-gradient(135deg, #2196f3, #64b5f6, #bbdefb);
+  animation: gradientShift 6.8s ease infinite;
+}
+
+.gradient-industrial {
+  background: linear-gradient(135deg, #6a1b9a, #8e24aa, #ba68c8);
+  animation: gradientShift 7.5s ease infinite;
+}
+
+.gradient-grunge {
+  /* Previously transparent — now a smoky grunge gradient */
+  background: linear-gradient(135deg, #2c2c2c, #555, #444);
+  animation: gradientShift 7s ease infinite;
+}
+
+.gradient-default {
+  background: linear-gradient(135deg, #999, #777, #555);
+  animation: gradientShift 6s ease infinite;
+}
+
+/* React Flow handles */
+.handle {
+  background: #555 !important;
+}
+
+/* Tooltip styling */
+.tooltip {
+  display: none;
   position: absolute;
   top: 110%;
   left: 50%;
   transform: translateX(-50%);
-  width: 220px;
-  background-color: #222;
+  width: 240px;
+  background-color: rgba(0,0,0,0.85);
   color: #fff;
-  padding: 8px;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  display: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
   z-index: 1000;
-  pointer-events: auto; /* important for hover */
   box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  pointer-events: none;
 }
 
 /* Show tooltip on hover */
 .genre-node:hover .tooltip {
   display: block;
 }
-
-/* Color classes */
-.genre-node.rock { background-color: rgb(221, 147, 11); }
-.genre-node.electronic { background-color: purple; }
-.genre-node.default { background-color: #999; }
