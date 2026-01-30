@@ -1,4 +1,4 @@
-# Music Genre Map
+# Music Genre Map (WIP)
 
 An **interactive music genre map** built with **React**, **React Flow**, and **Dagre**.  
 Explore relationships between rock and electronic genres, view their history, origin, and notable artists.  
