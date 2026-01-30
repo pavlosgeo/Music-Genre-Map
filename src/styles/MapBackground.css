@@ -1,0 +1,16 @@
+/* src/styles/MapBackground.css */
+.map-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.4);
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.map-background.visible {
+  opacity: 1;
+}

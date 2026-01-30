@@ -74,7 +74,6 @@ export default function MapPage() {
         <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} fitView>
           <MiniMap />
           <Controls />
-          <Background color="#aaa" gap={16} />
         </ReactFlow>
       </div>
 
