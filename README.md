@@ -49,7 +49,8 @@ src/
 │ ├─ GenreNode.css   # Genre Nodes styles
 │ ├─ MapBackground.css # Unsplash API to call background pictures for genre nodes
 │ └─
-│ ├─ .env #  Unsplash API access key used to fetch images from Unsplash
+│ ├─ .env # Unsplash API access key used to fetch images from Unsplash
+│ ├─ App.jsx # Renders MapPage component
 │ └─
 ```
 
