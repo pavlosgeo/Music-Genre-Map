@@ -70,3 +70,35 @@
   border-radius: 12px;
   font-size: 1.4rem;
 }
+
+.artist-tag {
+  position: relative;
+  cursor: pointer;
+}
+
+.artist-preview {
+  position: absolute;
+  top: 120%;
+  left: 0;
+  width: 220px;
+  background: #121212;
+  border-radius: 12px;
+  padding: 10px;
+  z-index: 1000;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  display: flex;
+  gap: 10px;
+}
+
+.artist-preview img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.artist-preview a {
+  color: #1db954;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
