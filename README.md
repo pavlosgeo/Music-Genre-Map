@@ -43,7 +43,8 @@ src/
 │ ├─ genres.js # Genre dataset
 │ ├─ influences.js # Genre influence connections
 ├─ pages/
-│ ├─ MapPage.jsx # Main page with React Flow graph
+│ ├─ MapPage.jsx # Page containing Music Genres/Connections
+│ ├─ LandingPage.jsx # User Landing page 
 ├─ styles/
 │ ├─ style.css # Global styles
 │ ├─ SidePanel.css   # Side panel styles 
