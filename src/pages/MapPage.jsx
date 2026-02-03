@@ -1,5 +1,6 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import ReactFlow, { MiniMap, Controls, Background } from 'reactflow';
+// src/pages/MapPage.jsx
+import React, { useState, useMemo, useRef, useEffect } from 'react';
+import ReactFlow, { MiniMap, Controls } from 'reactflow';
 import 'reactflow/dist/style.css';
 import '../styles/style.css';
 import { genres } from '../data/genres';
@@ -14,13 +15,15 @@ const nodeTypes = { genre: GenreNode };
 const nodeWidth = 150;
 const nodeHeight = 50;
 
+// Function to calculate node positions using Dagre
 const getLayoutedElements = (nodes, edges) => {
   const dagreGraph = new dagre.graphlib.Graph();
   dagreGraph.setDefaultEdgeLabel(() => ({}));
   dagreGraph.setGraph({ rankdir: 'LR' });
 
   nodes.forEach((node) => {
-    if (!node.position) dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
+    if (!node.position)
+      dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
   });
 
   edges.forEach((edge) => dagreGraph.setEdge(edge.source, edge.target));
@@ -38,14 +41,12 @@ const getLayoutedElements = (nodes, edges) => {
 export default function MapPage() {
   const [selectedGenre, setSelectedGenre] = useState(null);
 
-  // 🔑 Spotify PKCE: handle redirect code
+  // Spotify PKCE: handle redirect code
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
-
     if (code) {
-      fetchSpotifyToken(code); // make sure this function is imported from your utils
-      // optionally, clear the code from the URL so it doesn't trigger again
+      fetchSpotifyToken(code);
       window.history.replaceState({}, document.title, window.location.pathname);
     }
   }, []);
@@ -85,12 +86,44 @@ export default function MapPage() {
     [rawNodes, rawEdges]
   );
 
+  // Ref + state for controlling React Flow instance
+  const reactFlowWrapper = useRef(null);
+  const [reactFlowInstance, setReactFlowInstance] = useState(null);
+
+  // Center & zoom nodes on mount or whenever instance changes
+  useEffect(() => {
+    const centerMap = () => {
+      if (reactFlowInstance) {
+        reactFlowInstance.fitView({ padding: 0.2, minZoom: 0.8, maxZoom: 1 });
+        reactFlowInstance.setViewport({
+          ...reactFlowInstance.getViewport(),
+          zoom: 0.95
+        });
+      }
+    };
+
+    centerMap();
+
+    // 🌟 Handle window resize to keep nodes centered
+    window.addEventListener('resize', centerMap);
+    return () => window.removeEventListener('resize', centerMap);
+  }, [reactFlowInstance]);
+
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}>
+    <div
+      ref={reactFlowWrapper}
+      style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}
+    >
       <MapBackground selectedGenre={selectedGenre} />
 
       <div className="reactflow-wrapper" style={{ flex: 1 }}>
-        <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} fitView>
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          nodeTypes={nodeTypes}
+          fitView={false}
+          onInit={setReactFlowInstance}
+        >
           <svg style={{ position: 'absolute', width: 0, height: 0 }}>
             <defs>
               <linearGradient id="edge-gradient" gradientUnits="userSpaceOnUse">
@@ -110,4 +143,3 @@ export default function MapPage() {
     </div>
   );
 }
-
