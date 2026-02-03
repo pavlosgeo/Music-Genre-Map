@@ -43,7 +43,9 @@ export default function LandingPage() {
 
             <footer className="landing-footer">
                 <span>Interactive Music Genre Map</span> <br />
-                <span>Built by <a href="https://github.com/pavlosgeo">@pavlosgeo</a></span>
+                <span>
+                    Built by <a href="https://github.com/pavlosgeo" target="_blank" rel="noopener noreferrer">@pavlosgeo</a>
+                </span>
             </footer>
         </div>
     );
