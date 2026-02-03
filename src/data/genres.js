@@ -99,7 +99,7 @@ export const genres = [
     era: '1970-present',
     origin: 'UK/USA',
     description: 'Blends harsh electronic sounds, distorted beats, and dark, mechanical vibes—often aggressive, hypnotic, and a little dystopian.',
-    artists: ['Nitzer Ebb, Ministry, KMFDM.'],
+    artists: ['Nitzer Ebb', 'Ministry', 'KMFDM'],
     position: { x: 300, y: 500 },
   },
 ];

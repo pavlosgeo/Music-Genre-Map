@@ -1,11 +1,9 @@
-/* src/styles/genrenode.css */
-
 /* Base node style */
 .genre-node {
-  padding: 14px 28px;
-  border-radius: 18px;
+  padding: 16px 32px;
+  border-radius: 20px;
   color: #fff;
-  font-weight: bold;
+  font-weight: 700;
   text-align: center;
   cursor: pointer;
   position: relative;
@@ -13,23 +11,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: transform 0.25s, box-shadow 0.25s;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-position 0.5s ease;
   background-size: 200% 200%;
-    animation: gradientShift 8s ease infinite;
   border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: visible;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   font-size: 0.9rem;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
 }
 
-/* Hover: scale + glow */
+/* Hover: lift + glow */
 .genre-node:hover {
-  transform: translateY(-4px) scale(1.05);
+  transform: translateY(-6px) scale(1.06);
   box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.4),
-    0 0 24px rgba(255, 255, 255, 0.15);
+    0 16px 36px rgba(0, 0, 0, 0.45),
+    0 0 28px rgba(255, 255, 255, 0.12);
+}
+
+/* Inner subtle light overlay */
+.genre-node::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.08));
+  pointer-events: none;
 }
 
 /* Gradient shift animation */
@@ -45,16 +52,6 @@
   100% {
     background-position: 0% 50%;
   }
-}
-
-/* Inner overlay gradient for subtle light effect */
-.genre-node::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 18px;
-  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.08));
-  pointer-events: none;
 }
 
 /* Gradient backgrounds per genre */
@@ -104,7 +101,6 @@
 }
 
 .gradient-grunge {
-  /* Previously transparent — now a smoky grunge gradient */
   background: linear-gradient(135deg, #2c2c2c, #555, #444);
   animation: gradientShift 7s ease infinite;
 }
@@ -117,27 +113,35 @@
 /* React Flow handles */
 .handle {
   background: #555 !important;
+  border-radius: 50%;
 }
 
 /* Tooltip styling */
 .tooltip {
   display: none;
   position: absolute;
-  top: 110%;
+  top: 120%;
   left: 50%;
   transform: translateX(-50%);
-  width: 240px;
-  background-color: rgba(0, 0, 0, 0.85);
+  width: 300px;
+  background-color: #301934;
   color: #fff;
-  padding: 10px;
-  border-radius: 8px;
-  font-size: 0.85rem;
+  padding: 16px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  line-height: 1.5;
   z-index: 1000;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 /* Show tooltip on hover */
 .genre-node:hover .tooltip {
-  display: block;
+  opacity: 1;
+  transform: translateX(-50%) translateY(-6px);
 }
