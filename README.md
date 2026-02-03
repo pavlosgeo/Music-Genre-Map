@@ -3,7 +3,9 @@
 An **interactive music genre map** built with **React**, **React Flow**, and **Dagre**.  
 Explore relationships between rock and electronic genres, view their history, origin, and notable artists.  
 
-<img width="1906" height="919" alt="image" src="https://github.com/user-attachments/assets/0fb83ebb-bdd2-45f3-85b3-fc70284e875f" />
+<img width="1918" height="911" alt="image" src="https://github.com/user-attachments/assets/17c27a79-cd30-4e09-b44a-d61ff977de54" />
+<img width="1918" height="915" alt="image" src="https://github.com/user-attachments/assets/77d863c0-5684-42b8-b692-4ae5701cf222" />
+
 
 
 
@@ -42,7 +44,8 @@ src/
 │ ├─ genres.js # Genre dataset
 │ ├─ influences.js # Genre influence connections
 ├─ pages/
-│ ├─ MapPage.jsx # Main page with React Flow graph
+│ ├─ MapPage.jsx # Page containing Music Genres/Connections
+│ ├─ LandingPage.jsx # User Landing page 
 ├─ styles/
 │ ├─ style.css # Global styles
 │ ├─ SidePanel.css   # Side panel styles 
