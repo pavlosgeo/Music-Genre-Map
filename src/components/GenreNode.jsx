@@ -1,36 +1,57 @@
-// src/components/GenreNode.jsx
-import React from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Handle, Position } from 'reactflow';
-import '../styles/genrenode.css';
+import '../styles/GenreNode.css';
 
 export default function GenreNode({ data }) {
   const { genre, onClick } = data;
 
-  // Pick the gradient class based on genre family
-  const gradientClass = genre.family ? `gradient-${genre.family}` : 'gradient-default';
+  const nodeRef = useRef(null);
+  const [hovered, setHovered] = useState(false);
+  const [tooltipPos, setTooltipPos] = useState({ top: 0, left: 0 });
+
+  useLayoutEffect(() => {
+    if (!hovered || !nodeRef.current) return;
+
+    const rect = nodeRef.current.getBoundingClientRect();
+
+    setTooltipPos({
+      top: rect.bottom + 8,
+      left: rect.left + rect.width / 2,
+    });
+  }, [hovered]);
 
   return (
-    <div
-      className={`genre-node ${gradientClass}`}
-      onClick={(event) => {
-        event.stopPropagation(); // prevent React Flow canvas clicks
-        onClick && onClick(genre);
-      }}
-    >
-      {/* Genre name */}
-      {genre.name}
+    <>
+      <div
+        ref={nodeRef}
+        className={`genre-node gradient-${genre.id}`}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        onClick={() => onClick(genre)}
+      >
+        {genre.name}
 
-      {/* React Flow handles */}
-      <Handle type="target" position={Position.Top} className="handle" />
-      <Handle type="source" position={Position.Bottom} className="handle" />
-
-      {/* Tooltip */}
-      <div className="tooltip">
-        <p><strong>Era:</strong> {genre.era}</p>
-        <p><strong>Origin:</strong> {genre.origin}</p>
-        <p>{genre.description}</p>
-        <p><strong>Artists:</strong> {genre.artists.join(', ')}</p>
+        <Handle type="target" position={Position.Left} className="handle" />
+        <Handle type="source" position={Position.Right} className="handle" />
       </div>
-    </div>
+
+      {hovered &&
+        createPortal(
+          <div
+            className="tooltip tooltip--visible"
+            style={{
+              top: tooltipPos.top,
+              left: tooltipPos.left,
+            }}
+          >
+            <p><strong>Era:</strong> {genre.era}</p>
+            <p><strong>Origin:</strong> {genre.origin}</p>
+            <p>{genre.description}</p>
+            <p><strong>Artists:</strong> {genre.artists.join(', ')}</p>
+          </div>,
+          document.body
+        )}
+    </>
   );
 }

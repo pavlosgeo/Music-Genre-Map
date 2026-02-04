@@ -28,21 +28,6 @@ body,
   display: block;
 }
 
-.tooltip {
-  display: none;
-  position: absolute;
-  top: 110%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 220px;
-  background-color: #222;
-  color: #fff;
-  padding: 8px;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  z-index: 100;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-}
 
 @keyframes edgePulse {
   to {

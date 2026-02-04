@@ -19,6 +19,7 @@
   text-transform: uppercase;
   font-size: 0.9rem;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  will-change: transform;    
 }
 
 /* Hover: lift + glow */
@@ -32,7 +33,7 @@
 /* Inner subtle light overlay */
 .genre-node::after {
   content: '';
-  position: absolute;
+  position: relative;
   inset: 0;
   border-radius: 20px;
   background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.08));
@@ -116,9 +117,7 @@
   border-radius: 50%;
 }
 
-/* Tooltip styling */
 .tooltip {
-  display: none;
   position: absolute;
   top: 120%;
   left: 50%;
@@ -130,7 +129,6 @@
   border-radius: 20px;
   font-size: 0.95rem;
   line-height: 1.5;
-  z-index: 1000;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -140,8 +138,11 @@
   gap: 5px;
 }
 
-/* Show tooltip on hover */
 .genre-node:hover .tooltip {
   opacity: 1;
   transform: translateX(-50%) translateY(-6px);
+}
+
+.tooltip--visible {
+  opacity: 1;
 }
