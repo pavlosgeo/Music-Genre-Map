@@ -148,3 +148,15 @@
 .artist-preview a:hover {
   text-decoration: underline;
 }
+
+.genre-roots {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.genre-roots p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+}

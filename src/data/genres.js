@@ -7,6 +7,7 @@ export const genres = [
     origin: 'US/UK',
     description: 'Built around electric guitars, strong rhythms, and catchy or powerful songwriting, ranging from raw to polished.',
     artists: ['The Beatles', 'Led Zeppelin', 'Queen'],
+    roots: 'Rock music developed in the late 1940s and 1950s out of African-American blues, rhythm and blues, gospel, and elements of country and rockabilly. Early pioneers such as Chuck Berry, Little Richard, and Elvis Presley emphasized electric guitars and a strong backbeat; over the following decades rock split into many subgenres (hard rock, progressive rock, punk, metal, indie) and became a dominant global popular-music culture, associated with youth, rebellion, and stylistic innovation.',
     position: { x: 50, y: 100 },
   },
   {
@@ -17,6 +18,7 @@ export const genres = [
     origin: 'US/UK',
     description: 'Fast, loud, and stripped-down rock music with a rebellious DIY attitude and anti-establishment edge.',
     artists: ['The Ramones', 'Sex Pistols', 'The Clash'],
+    roots: 'Punk rock arose in the mid-1970s in the US and UK as a backlash to what many musicians saw as bloated, commercial mainstream rock. Drawing on 1960s garage rock and protopunk acts (e.g., The Stooges, MC5), punk favored short, fast songs, raw production, and an explicit DIY, anti-authoritarian ethos—lyrics often tackled social and political frustrations and spawned a vibrant independent scene and subculture.',
     position: { x: 50, y: 200 },
   },
   {
@@ -27,6 +29,7 @@ export const genres = [
     origin: 'Seattle, USA',
     description: 'Raw, heavy rock style blending punk aggression and metal riffs with gritty, angsty, often introspective themes.',
     artists: ['Nirvana', 'Pearl Jam', 'Soundgarden'],
+    roots: 'Grunge developed in the late 1980s and early 1990s around Seattle, blending the rawness and DIY spirit of punk with the heaviness and riff focus of metal and the introspection of indie rock. Local labels (e.g., Sub Pop) and bands emphasized distorted guitars, sludgy tones, and angsty lyrics; mainstream breakthroughs in the early 1990s brought grunge to global prominence and influenced fashion and youth culture.',
     position: { x: 50, y: 300 },
   },
   {
@@ -37,6 +40,7 @@ export const genres = [
     origin: 'UK/USA',
     description: 'Guitar-driven music with powerful riffs, intense drums, and high energy, often exploring dark, epic, or rebellious themes.',
     artists: ['Iron Maiden', 'Metallica', 'Black Sabbath'],
+    roots: 'Heavy metal emerged in the late 1960s and early 1970s, largely in the UK and US, evolving from blues rock and psychedelic rock with heavier amplification, extended guitar solos, and emphatic, driving rhythms. Early innovators like Black Sabbath, Led Zeppelin, and Deep Purple emphasized distorted riffs and theatrical intensity; the genre later diversified into substyles (e.g., thrash, death, power) with distinctive technical and thematic traits.',
     position: { x: 50, y: 400 },
   },
   {
@@ -47,6 +51,7 @@ export const genres = [
     origin: 'US/UK',
     description: 'Mixes guitar-driven rock with experimental sounds and non-mainstream attitudes, often introspective, edgy, or genre-blending.',
     artists: ['Radiohead', 'R.E.M.', 'Foo Fighters'],
+    roots: 'Alternative rock is an umbrella term for various rock subgenres that arose in the 1980s and gained mainstream visibility in the 1990s; it traces roots to post-punk, college and indie rock, and the DIY underground. Characterized by stylistic diversity and a tendency toward experimentation, alternative scenes emphasized independent labels and a resistance to mainstream commercial formulas, producing widely varied sounds from jangle-pop to experimental art-rock.',
     position: { x: 50, y: 500 },
   },
 
@@ -59,6 +64,7 @@ export const genres = [
     origin: 'Worldwide',
     description: 'Made primarily with synthesizers, drum machines, and digital production, spanning everything from experimental to club-focused sounds.',
     artists: ['Daft Punk', 'Kraftwerk', 'The Chemical Brothers'],
+    roots: 'Electronic music traces back to early 20th-century experimental composers and mid-century developments in musique concrète, tape manipulation, and synthesis. The arrival of affordable synths and drum machines in the 1960s–80s (and innovators like Kraftwerk) enabled new production-focused practices and club-oriented genres; electronic music now spans ambient, dance, and experimental traditions emphasizing timbre, texture, and studio-based composition.',
     position: { x: 300, y: 100 },
   },
   {
@@ -69,6 +75,7 @@ export const genres = [
     origin: 'Chicago, USA',
     description: 'groove-focused electronic style, soulful or funky vibes, and feel-good energy built for dancing.',
     artists: ['Frankie Knuckles', 'Deadmau5', 'Calvin Harris'],
+    roots: 'House music emerged in early-1980s Chicago from DJs and producers extending and reworking disco-era grooves with drum machines, synth basses, and repetitive 4/4 rhythms. Pioneers like Frankie Knuckles crafted soulful, dance-focused tracks in club settings (e.g., The Warehouse); house culture nurtured inclusive dance scenes and spawned many regional substyles (deep, acid, garage, tech house).',
     position: { x: 300, y: 200 },
   },
   {
@@ -79,6 +86,7 @@ export const genres = [
     origin: 'Detroit, USA',
     description: 'Beat-driven electronic music style with hypnotic rhythms and futuristic, minimalist sound design, made for the dance floor.',
     artists: ['Juan Atkins', 'Carl Cox', 'Jeff Mills'],
+    roots: 'Techno surfaced in mid-1980s Detroit through producers influenced by synth-driven European electronic music, funk, and futuristic ideas; figures like Juan Atkins, Derrick May, and Kevin Saunderson shaped an instrumental, rhythm-forward sound. Characterized by repetitive, machine-like beats, modular synthesis, and a focus on texture and atmosphere, techno played a major role in underground club cultures and international dance scenes.',
     position: { x: 300, y: 300 },
   },
   {
@@ -89,6 +97,7 @@ export const genres = [
     origin: 'UK/USA',
     description: 'Built around chopped-up drum breaks, syncopated rhythms, and a fast, funky, high-energy feel.',
     artists: ['The Prodigy', 'Plump DJs', 'Fatboy Slim'],
+    roots: 'Breakbeat evolved from hip-hop and funk practices of sampling and rearranging drum breaks (notably the "Amen" break) and became a central rhythmic approach in 1980s–90s dance music. The style influenced and intermingled with UK rave culture, jungle, and drum-and-bass and later helped spawn big beat and other electronic forms; it is defined by syncopated, chopped-up drum patterns and an energetic, dancefloor-ready feel.',
     position: { x: 300, y: 400 },
   },
   {
@@ -99,6 +108,7 @@ export const genres = [
     origin: 'UK/USA',
     description: 'Blends harsh electronic sounds, distorted beats, and dark, mechanical vibes—often aggressive, hypnotic, and a little dystopian.',
     artists: ['Nitzer Ebb', 'Ministry', 'KMFDM'],
+    roots: 'Industrial music emerged in the mid-1970s as an experimental fusion of electronic avant-garde techniques, noise, and punk attitude; early practitioners used found sounds, tape manipulation, and confrontational performance to explore mechanical and dystopian themes. The genre spawned related styles such as industrial rock and EBM and later influenced club-focused offshoots like industrial techno—a harder, rhythm-driven hybrid that blends technos driving beats with industrials distortion, metallic textures, and dark atmospheres, propagated by underground producers and European techno scenes.',
     position: { x: 300, y: 500 },
   },
 ];
