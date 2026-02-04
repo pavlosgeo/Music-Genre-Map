@@ -4,7 +4,8 @@ An **interactive music genre map** built with **React**, **React Flow**, and **D
 Explore relationships between rock and electronic genres, view their history, origin, and notable artists.  
 
 <img width="1918" height="911" alt="image" src="https://github.com/user-attachments/assets/17c27a79-cd30-4e09-b44a-d61ff977de54" />
-<img width="1918" height="915" alt="image" src="https://github.com/user-attachments/assets/77d863c0-5684-42b8-b692-4ae5701cf222" />
+<img width="1917" height="899" alt="image" src="https://github.com/user-attachments/assets/284bda81-4e0b-4fc6-aef0-f060479c123b" />
+
 
 
 
