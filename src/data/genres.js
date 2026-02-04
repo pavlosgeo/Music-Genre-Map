@@ -1,5 +1,4 @@
 export const genres = [
-  // Rock Column (left)
   {
     id: 'rock',
     name: 'Rock',
@@ -51,7 +50,7 @@ export const genres = [
     position: { x: 50, y: 500 },
   },
 
-  // Electronic Column (right)
+
   {
     id: 'electronic',
     name: 'Electronic',

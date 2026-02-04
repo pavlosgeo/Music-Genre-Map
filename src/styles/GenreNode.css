@@ -1,46 +1,55 @@
-/* Base node style */
 .genre-node {
-  padding: 16px 32px;
-  border-radius: 20px;
-  color: #fff;
+  padding: 16px 34px;
+  border-radius: 22px;
+  color: #f4ecff;
   font-weight: 700;
   text-align: center;
   cursor: pointer;
   position: relative;
-  min-width: 140px;
+  min-width: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-position 0.5s ease;
-  background-size: 200% 200%;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  overflow: visible;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+
   font-size: 0.9rem;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
-  will-change: transform;    
-}
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 
-/* Hover: lift + glow */
-.genre-node:hover {
-  transform: translateY(-6px) scale(1.06);
+  background-size: 300% 300%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow:
-    0 16px 36px rgba(0, 0, 0, 0.45),
-    0 0 28px rgba(255, 255, 255, 0.12);
+    0 10px 24px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.35s ease,
+    background-position 0.6s ease;
+
+  will-change: transform;
+  overflow: visible;
 }
 
-/* Inner subtle light overlay */
+.genre-node:hover {
+  transform: translateY(-6px) scale(1.04);
+  box-shadow:
+    0 22px 48px rgba(0, 0, 0, 0.6),
+    0 0 36px rgba(170, 120, 255, 0.35);
+}
+
+
 .genre-node::after {
   content: '';
-  position: relative;
+  position: absolute;
   inset: 0;
-  border-radius: 20px;
-  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.08));
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top left,
+      rgba(255, 255, 255, 0.12),
+      transparent 60%);
   pointer-events: none;
 }
 
-/* Gradient shift animation */
 @keyframes gradientShift {
   0% {
     background-position: 0% 50%;
@@ -55,92 +64,126 @@
   }
 }
 
-/* Gradient backgrounds per genre */
-.gradient-rock {
-  background: linear-gradient(135deg, #ff6b6b, #ff5252, #ff1744);
-  animation: gradientShift 6s ease infinite;
-}
 
-.gradient-punk {
-  background: linear-gradient(135deg, #ff3e3e, #ff5252, #ff7f7f);
-  animation: gradientShift 7s ease infinite;
-}
-
-.gradient-metal {
-  background: linear-gradient(135deg, #8b0000, #c1121f, #ff2e2e);
+.gradient-default {
+  background: linear-gradient(135deg,
+      #3a155e,
+      #4a1b7a,
+      #6a2ca0);
   animation: gradientShift 8s ease infinite;
 }
 
-.gradient-alternative {
-  background: linear-gradient(135deg, #ff6b6b, #ffbaba, #ff5c5c);
-  animation: gradientShift 9s ease infinite;
+
+.gradient-rock {
+  background: linear-gradient(135deg,
+      #6b0f1a,
+      #a31621,
+      #d00032);
+  animation: gradientShift 6s ease infinite;
+}
+
+.gradient-rock:hover {
+  box-shadow:
+    0 24px 52px rgba(0, 0, 0, 0.65),
+    0 0 40px rgba(255, 70, 120, 0.45);
 }
 
 .gradient-electronic {
-  background: linear-gradient(135deg, #4d79ff, #6b5cff, #8c54ff);
-  animation: gradientShift 5s ease infinite;
+  background: linear-gradient(135deg,
+      #2b0f45,
+      #4b1d7a,
+      #6f3cff);
+  animation: gradientShift 5s linear infinite;
+}
+
+.gradient-electronic:hover {
+  box-shadow:
+    0 22px 46px rgba(0, 0, 0, 0.6),
+    0 0 42px rgba(120, 140, 255, 0.6);
+}
+
+
+.gradient-electronic::after {
+  background:
+    radial-gradient(circle at top,
+      rgba(140, 160, 255, 0.35),
+      transparent 65%);
+}
+
+
+.gradient-metal {
+  background: linear-gradient(135deg, #240012, #3a001b, #5c002c);
+  animation: gradientShift 7s ease infinite;
+}
+
+.gradient-industrial {
+  background: linear-gradient(135deg, #1f0a2e, #31104a, #4a1a6b);
+  animation: gradientShift 7.5s ease infinite;
 }
 
 .gradient-house {
-  background: linear-gradient(135deg, #1e90ff, #4da6ff, #80c1ff);
+  background: linear-gradient(135deg, #3b1d5a, #5a2d82, #7a44b5);
   animation: gradientShift 6.5s ease infinite;
 }
 
 .gradient-techno {
-  background: linear-gradient(135deg, #3f51b5, #5c6bc0, #7986cb);
-  animation: gradientShift 7.2s ease infinite;
-}
-
-.gradient-breakbeat {
-  background: linear-gradient(135deg, #2196f3, #64b5f6, #bbdefb);
-  animation: gradientShift 6.8s ease infinite;
-}
-
-.gradient-industrial {
-  background: linear-gradient(135deg, #6a1b9a, #8e24aa, #ba68c8);
-  animation: gradientShift 7.5s ease infinite;
-}
-
-.gradient-grunge {
-  background: linear-gradient(135deg, #2c2c2c, #555, #444);
+  background: linear-gradient(135deg, #24124a, #3a1d7a, #5a34b8);
   animation: gradientShift 7s ease infinite;
 }
 
-.gradient-default {
-  background: linear-gradient(135deg, #999, #777, #555);
-  animation: gradientShift 6s ease infinite;
+.gradient-breakbeat {
+  background: linear-gradient(135deg, #341456, #4c238a, #6b3dcc);
+  animation: gradientShift 6.8s ease infinite;
 }
 
-/* React Flow handles */
+.gradient-grunge {
+  background: linear-gradient(135deg, #1a0f24, #2b1c3a, #3a2a4a);
+  animation: gradientShift 7s ease infinite;
+}
+
+.gradient-punk {
+  background: linear-gradient(135deg,
+      #8a0015,
+      #c1121f,
+      #ff1744);
+  animation: gradientShift 5.5s ease infinite;
+}
+
+.gradient-alternative {
+  background: linear-gradient(135deg,
+      #5a0f2e,
+      #7a1a42,
+      #b8326a);
+  animation: gradientShift 6.5s ease infinite;
+}
+
+
 .handle {
-  background: #555 !important;
+  background: rgba(255, 255, 255, 0.4) !important;
   border-radius: 50%;
 }
 
 .tooltip {
-  position: absolute;
-  top: 120%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 300px;
-  background-color: #301934;
-  color: #fff;
-  padding: 16px;
-  border-radius: 20px;
+  position: fixed;
+  width: 320px;
+  background:
+    linear-gradient(135deg,
+      rgba(60, 20, 90, 0.95),
+      rgba(35, 10, 55, 0.95));
+  color: #f6edff;
+  padding: 18px;
+  border-radius: 22px;
   font-size: 0.95rem;
   line-height: 1.5;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(140, 90, 255, 0.35);
   pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
   opacity: 0;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-}
-
-.genre-node:hover .tooltip {
-  opacity: 1;
-  transform: translateX(-50%) translateY(-6px);
+  gap: 6px;
+  backdrop-filter: blur(10px);
 }
 
 .tooltip--visible {
