@@ -48,7 +48,7 @@ export default function GenreNode({ data }) {
             <p><strong>Era:</strong> {genre.era}</p>
             <p><strong>Origin:</strong> {genre.origin}</p>
             <p>{genre.description}</p>
-            <p><strong>Artists:</strong> {genre.artists.join(', ')}</p>
+            {/* <p><strong>Artists:</strong> {genre.artists.join(', ')}</p> */}
           </div>,
           document.body
         )}

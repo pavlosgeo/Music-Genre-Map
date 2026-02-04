@@ -42,7 +42,6 @@ export default function SidePanel({ genre, onClose }) {
         </div>
       </div>
 
-      {/* 🌱 Roots & History (NEW) */}
       {genre.roots && (
         <div className="genre-roots">
           <span className="section-label">Roots & History</span>
