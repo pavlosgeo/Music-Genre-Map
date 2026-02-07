@@ -9,8 +9,6 @@ Explore relationships between rock and electronic genres, view their history, or
 
 
 
-
-
 ---
 
 ## Features
