@@ -5,9 +5,6 @@ Explore relationships between rock and electronic genres, view their history, or
 
 <img width="1918" height="911" alt="image" src="https://github.com/user-attachments/assets/17c27a79-cd30-4e09-b44a-d61ff977de54" />
 <img width="1915" height="918" alt="image" src="https://github.com/user-attachments/assets/000314ee-a690-4127-9bfe-9d38a5c6f75b" />
-<img width="1915" height="918" alt="image" src="https://github.com/user-attachments/assets/000314ee-a690-4127-9bfe-9d38a5c6f75b" />
-
-
 
 
 ---
