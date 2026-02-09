@@ -9,8 +9,6 @@ Explore relationships between rock and electronic genres, view their history, or
 
 
 
-
-
 ---
 
 ## Features
@@ -18,11 +16,15 @@ Explore relationships between rock and electronic genres, view their history, or
 - **Interactive graph** of music genres
   - Nodes represent genres (Rock, Electronic, etc.)
   - Edges show influences and connections
+    
 - **Hover over nodes** to see genre details: era, origin, description, and artists
 - **Dynamic Backgrounds** Each genre shows a background image fetched from Unsplash.
 - **Click a node** to open a side panel with extended information
 - **Automatic layout** using **Dagre** (left-to-right layout)
 - **MiniMap, Controls, and Background** for better navigation
+  
+- Clicking a genre highlights it and its direct influences
+- Non-related genres visually de-emphasized
 
 ---
 
@@ -98,9 +100,11 @@ Future Improvements:
 
 • Allow filtering by era, origin, or artist
 
-• Add animations for edges
-
 • Responsive design for mobile/tablet screens
+
+**Design Philosophy**
+
+**This project focuses on making abstract musical history explorable through visual storytelling, combining data-driven layout, motion design, and contextual information.**
 
 
 
