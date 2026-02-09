@@ -43,6 +43,7 @@ src/
 ├─ components/
 │ ├─ GenreNode.jsx # Custom node for React Flow
 │ ├─ SidePanel.jsx # Side panel showing genre details
+│ ├─ SearchBar.jsx # Search bar component
 │ └─ MapBackground.jsx   # Dynamic Unsplash background
 ├─ data/
 │ ├─ genres.js # Genre dataset
@@ -52,11 +53,12 @@ src/
 │ ├─ LandingPage.jsx # User Landing page 
 ├─ styles/
 │ ├─ style.css # Global styles
-│ ├─ SidePanel.css   # Side panel styles 
-│ ├─ GenreNode.css   # Genre Nodes styles
+│ ├─ SidePanel.css   # Side panel styling 
+│ ├─ GenreNode.css   # Genre Nodes styling
 │ ├─ MapBackground.css # Unsplash API to call background pictures for genre nodes
+│ ├─ SearchBar.css # Search Bar styling
 │ └─
-│ ├─ .env # Unsplash API access key used to fetch images from Unsplash
+│ ├─ .env # Unsplash/Spotify API access key used to fetch images from Unsplash/Lists from Spotify
 │ ├─ App.jsx # Renders MapPage component
 │ └─
 ```
