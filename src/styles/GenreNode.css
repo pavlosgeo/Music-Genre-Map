@@ -202,8 +202,8 @@
 .genre-node.is-selected::before {
   content: '';
   position: absolute;
-  inset: -4px;
-  border-radius: 26px;
+  inset: -5px;
+  border-radius: 28px;
   z-index: -1;
   animation: selectedPulse 2.4s ease-out infinite;
 }
