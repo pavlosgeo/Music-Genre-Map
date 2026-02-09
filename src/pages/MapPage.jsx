@@ -7,7 +7,6 @@ import React, {
 import ReactFlow, {
   MiniMap,
   Controls,
-  Background,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import '../styles/style.css';
@@ -93,7 +92,7 @@ export default function MapPage() {
     }
   }, []);
 
-  /* ---------- Raw nodes & edges ---------- */
+  /* ---------- Raw nodes ---------- */
 
   const rawNodes = useMemo(
     () =>
@@ -103,10 +102,14 @@ export default function MapPage() {
         data: {
           genre: g,
           onClick: (genre) => setSelectedGenre(genre),
+          isSelected: false,
+          isDimmed: false,
         },
       })),
     []
   );
+
+  /* ---------- Raw edges ---------- */
 
   const rawEdges = useMemo(
     () =>
@@ -145,18 +148,30 @@ export default function MapPage() {
 
   const focusedNodes = useMemo(() => {
     return nodes.map((node) => {
-      if (!focusNodeIds) return node;
+      if (!focusNodeIds) {
+        return {
+          ...node,
+          data: {
+            ...node.data,
+            isSelected: false,
+            isDimmed: false,
+          },
+        };
+      }
 
+      const isSelected = selectedGenre?.id === node.id;
       const isFocused = focusNodeIds.has(node.id);
 
       return {
         ...node,
-        className: isFocused
-          ? 'node--focused'
-          : 'node--dimmed',
+        data: {
+          ...node.data,
+          isSelected,
+          isDimmed: !isFocused,
+        },
       };
     });
-  }, [nodes, focusNodeIds]);
+  }, [nodes, focusNodeIds, selectedGenre]);
 
   const focusedEdges = useMemo(() => {
     return edges.map((edge) => {

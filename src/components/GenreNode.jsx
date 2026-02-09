@@ -4,7 +4,7 @@ import { Handle, Position } from 'reactflow';
 import '../styles/GenreNode.css';
 
 export default function GenreNode({ data }) {
-  const { genre, onClick } = data;
+  const { genre, onClick, isSelected, isDimmed } = data;
 
   const nodeRef = useRef(null);
   const [hovered, setHovered] = useState(false);
@@ -25,7 +25,12 @@ export default function GenreNode({ data }) {
     <>
       <div
         ref={nodeRef}
-        className={`genre-node gradient-${genre.id}`}
+        className={`
+          genre-node
+          gradient-${genre.id}
+          ${isSelected ? 'is-selected' : ''}
+          ${isDimmed ? 'is-dimmed' : ''}
+        `}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         onClick={() => onClick(genre)}
@@ -48,7 +53,6 @@ export default function GenreNode({ data }) {
             <p><strong>Era:</strong> {genre.era}</p>
             <p><strong>Origin:</strong> {genre.origin}</p>
             <p>{genre.description}</p>
-            {/* <p><strong>Artists:</strong> {genre.artists.join(', ')}</p> */}
           </div>,
           document.body
         )}

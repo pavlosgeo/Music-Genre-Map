@@ -189,3 +189,23 @@
 .tooltip--visible {
   opacity: 1;
 }
+
+.genre-node.is-selected {
+  box-shadow:
+    0 0 0 3px rgba(186, 104, 200, 0.9),
+    0 0 40px rgba(186, 104, 200, 0.9),
+    0 20px 40px rgba(0, 0, 0, 0.6);
+  transform: scale(1.1);
+  z-index: 10;
+}
+
+.genre-node.is-dimmed {
+  opacity: 0.35;
+  filter: saturate(0.6) blur(0.2px);
+}
+
+.react-flow__edge.is-active path {
+  stroke: #ba68c8;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 6px rgba(186, 104, 200, 0.8));
+}
