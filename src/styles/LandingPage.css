@@ -110,3 +110,96 @@
     color: #8b8b94;
     z-index: 2;
 }
+
+/* 3-Step tutorial container */
+.landing-tutorial {
+    display: flex;
+    justify-content: space-between;
+    max-width: 900px;
+    margin-bottom: 3rem;
+    gap: 2rem;
+    z-index: 2;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+.landing-tutorial-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 1 150px;
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    position: relative;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.landing-tutorial-step:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.landing-tutorial-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.landing-tutorial-text strong {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.landing-tutorial-text p {
+    font-size: 0.9rem;
+    color: #cfd0d6;
+    margin: 0;
+}
+
+/* Curved arrows between steps */
+.landing-tutorial-arrow {
+    position: absolute;
+    top: 50%;
+    right: -70px; /* position arrow outside the step box */
+    transform: translateY(-50%);
+}
+
+.landing-tutorial-step:last-child .landing-tutorial-arrow {
+    display: none;
+}
+
+/* Animate arrow path */
+.landing-tutorial-arrow path {
+    stroke-dasharray: 80;
+    stroke-dashoffset: 80;
+    animation: dash 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes dash {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .landing-tutorial {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .landing-tutorial-arrow {
+        top: auto;
+        bottom: -50px;
+        right: 50%;
+        transform: translateX(50%);
+        width: 40px;
+        height: 60px;
+    }
+
+    .landing-tutorial-arrow path {
+        d: path("M0,0 C0,20 40,20 40,60");
+    }
+}
