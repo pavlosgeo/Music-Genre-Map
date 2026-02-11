@@ -1,10 +1,4 @@
-// src/utils/navigation.js
-
 /**
- * Finds the next node for arrow navigation.
- * Only considers directly connected neighbors.
- * Optionally, can restrict by same-family nodes.
- *
  * @param {string} currentId - current node id
  * @param {string} direction - 'ArrowUp'|'ArrowDown'|'ArrowLeft'|'ArrowRight'
  * @param {Array} nodes - list of focused nodes

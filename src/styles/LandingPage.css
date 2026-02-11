@@ -1,4 +1,3 @@
-/* Root layout */
 .landing-root {
     position: relative;
     width: 100%;
@@ -9,7 +8,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Gradient background */
+
 .landing-bg-gradient {
     position: absolute;
     inset: 0;
@@ -20,7 +19,6 @@
     z-index: 0;
 }
 
-/* Subtle noise overlay */
 .landing-bg-noise {
     position: absolute;
     inset: 0;
@@ -29,7 +27,7 @@
     pointer-events: none;
 }
 
-/* Main content container */
+
 .landing-content {
     position: relative;
     z-index: 2;
@@ -42,7 +40,7 @@
     justify-content: center;
 }
 
-/* Heading block */
+
 .landing-heading {
     display: flex;
     flex-direction: column;
@@ -64,7 +62,7 @@
     -webkit-text-fill-color: transparent;
 }
 
-/* Description text */
+
 .landing-description {
     max-width: 620px;
     font-size: 1.25rem;
@@ -73,7 +71,7 @@
     margin-bottom: 3rem;
 }
 
-/* CTA area */
+
 .landing-actions {
     display: flex;
     align-items: center;
@@ -103,7 +101,6 @@
         0 0 25px rgba(255, 255, 255, 0.15);
 }
 
-/* Footer */
 .landing-footer {
     position: absolute;
     bottom: 1.5rem;

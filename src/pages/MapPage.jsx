@@ -141,9 +141,10 @@ export default function MapPage() {
   };
 
   /* ---------- Arrow navigation ---------- */
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) return;
+useEffect(() => {
+  const handleKeyDown = (e) => {
+    // Arrow key navigation
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
       e.preventDefault();
 
       const startId = arrowSelection || selectedGenre?.id || focusedNodes[0]?.id;
@@ -152,11 +153,19 @@ export default function MapPage() {
       const newId = findDirectionalNode(startId, e.key, focusedNodes, edges);
       setArrowSelection(newId);
       setSelectedGenre(focusedNodes.find((n) => n.id === newId)?.data.genre || null);
-    };
+    }
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [arrowSelection, focusedNodes, selectedGenre, edges]);
+    // Escape key clears selection
+    if (e.key === 'Escape') {
+      setArrowSelection(null);
+      setSelectedGenre(null);
+    }
+  };
+
+  window.addEventListener('keydown', handleKeyDown);
+  return () => window.removeEventListener('keydown', handleKeyDown);
+}, [arrowSelection, focusedNodes, selectedGenre, edges]);
+
 
   /* ==================== RENDER ==================== */
   return (
