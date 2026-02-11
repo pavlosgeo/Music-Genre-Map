@@ -4,9 +4,7 @@ An **interactive music genre map** built with **React**, **React Flow**, and **D
 Explore relationships between rock and electronic genres, view their history, origin, and notable artists.  
 
 <img width="1918" height="911" alt="image" src="https://github.com/user-attachments/assets/17c27a79-cd30-4e09-b44a-d61ff977de54" />
-<img width="1920" height="900" alt="image" src="https://github.com/user-attachments/assets/20d8a1dd-49bf-44fe-857c-15b89c1ef358" />
-
-
+<img width="1915" height="918" alt="image" src="https://github.com/user-attachments/assets/000314ee-a690-4127-9bfe-9d38a5c6f75b" />
 
 
 ---
@@ -43,6 +41,7 @@ src/
 ├─ components/
 │ ├─ GenreNode.jsx # Custom node for React Flow
 │ ├─ SidePanel.jsx # Side panel showing genre details
+│ ├─ SearchBar.jsx # Search bar component
 │ └─ MapBackground.jsx   # Dynamic Unsplash background
 ├─ data/
 │ ├─ genres.js # Genre dataset
@@ -52,11 +51,12 @@ src/
 │ ├─ LandingPage.jsx # User Landing page 
 ├─ styles/
 │ ├─ style.css # Global styles
-│ ├─ SidePanel.css   # Side panel styles 
-│ ├─ GenreNode.css   # Genre Nodes styles
+│ ├─ SidePanel.css   # Side panel styling 
+│ ├─ GenreNode.css   # Genre Nodes styling
 │ ├─ MapBackground.css # Unsplash API to call background pictures for genre nodes
+│ ├─ SearchBar.css # Search Bar styling
 │ └─
-│ ├─ .env # Unsplash API access key used to fetch images from Unsplash
+│ ├─ .env # Unsplash/Spotify API access key used to fetch images from Unsplash/Lists from Spotify
 │ ├─ App.jsx # Renders MapPage component
 │ └─
 ```
