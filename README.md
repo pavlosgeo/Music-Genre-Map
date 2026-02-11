@@ -50,12 +50,15 @@ src/
 │ ├─ MapPage.jsx # Page containing Music Genres/Connections
 │ ├─ LandingPage.jsx # User Landing page 
 ├─ styles/
-│ ├─ style.css # Global styles
+│ ├─ style.css # Global styling
 │ ├─ SidePanel.css   # Side panel styling 
 │ ├─ GenreNode.css   # Genre Nodes styling
 │ ├─ MapBackground.css # Unsplash API to call background pictures for genre nodes
 │ ├─ SearchBar.css # Search Bar styling
 │ └─
+├─ utils/
+  ├─ navigation.js # Helper for arrow navigation.
+│ └─ 
 │ ├─ .env # Unsplash/Spotify API access key used to fetch images from Unsplash/Lists from Spotify
 │ ├─ App.jsx # Renders MapPage component
 │ └─
