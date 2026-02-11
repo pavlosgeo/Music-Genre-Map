@@ -20,3 +20,11 @@
 .map-search input::placeholder {
     color: rgba(255, 255, 255, 0.6);
 }
+
+.search-hint {
+    margin-top: 6px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.75rem;
+    opacity: 0.6;
+    text-align: center;
+}

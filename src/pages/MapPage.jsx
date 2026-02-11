@@ -1,5 +1,5 @@
 // src/pages/MapPage.jsx
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import ReactFlow, { MiniMap, Controls } from 'reactflow';
 import 'reactflow/dist/style.css';
 import '../styles/style.css';
@@ -12,6 +12,7 @@ import MapBackground from '../components/MapBackground';
 import SearchBar from '../components/SearchBar';
 import dagre from 'dagre';
 import { fetchSpotifyToken } from '../utils/spotifyAuth';
+import { findDirectionalNode } from '../utils/navigation';
 
 const nodeTypes = { genre: GenreNode };
 const nodeWidth = 150;
@@ -30,16 +31,16 @@ const getLayoutedElements = (nodes, edges) => {
   });
 
   edges.forEach((edge) => dagreGraph.setEdge(edge.source, edge.target));
-
   dagre.layout(dagreGraph);
 
-  const positionedNodes = nodes.map((node) => {
-    if (node.position) return node;
-    const pos = dagreGraph.node(node.id);
-    return { ...node, position: { x: pos.x, y: pos.y } };
-  });
-
-  return { nodes: positionedNodes, edges };
+  return {
+    nodes: nodes.map((node) => {
+      if (node.position) return node;
+      const pos = dagreGraph.node(node.id);
+      return { ...node, position: { x: pos.x, y: pos.y } };
+    }),
+    edges,
+  };
 };
 
 /* -------------------- Focus helpers -------------------- */
@@ -52,10 +53,13 @@ const getConnectedNodeIds = (genreId, edges) => {
   return connected;
 };
 
-
+/* ==================== MAP PAGE ==================== */
 export default function MapPage() {
   const [selectedGenre, setSelectedGenre] = useState(null);
+  const [arrowSelection, setArrowSelection] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+
+  const reactFlowInstance = useRef(null);
 
   /* ---------- Spotify PKCE redirect ---------- */
   useEffect(() => {
@@ -70,12 +74,14 @@ export default function MapPage() {
   /* ---------- Raw nodes & edges ---------- */
   const rawNodes = useMemo(
     () =>
-      genres.map((g) => ({
-        id: g.id,
-        type: 'genre',
-        data: { genre: g, onClick: (genre) => setSelectedGenre(genre), isSelected: false, isDimmed: false },
-      })),
-    []
+      genres
+        .filter((g) => g.name.toLowerCase().includes(searchTerm.toLowerCase()))
+        .map((g) => ({
+          id: g.id,
+          type: 'genre',
+          data: { genre: g, onClick: (genre) => setSelectedGenre(genre), isSelected: false, isDimmed: false },
+        })),
+    [searchTerm]
   );
 
   const rawEdges = useMemo(
@@ -98,38 +104,23 @@ export default function MapPage() {
     []
   );
 
-  /* ---------- Layouted graph ---------- */
+  /* ---------- Layout ---------- */
   const { nodes, edges } = useMemo(() => getLayoutedElements(rawNodes, rawEdges), [rawNodes, rawEdges]);
 
   /* ---------- Focus logic ---------- */
-  const searchFocusedIds = useMemo(() => {
-    if (!searchTerm) return null;
-    const lower = searchTerm.toLowerCase();
-    return new Set(nodes.filter((n) => n.data.genre.name.toLowerCase().includes(lower)).map((n) => n.id));
-  }, [searchTerm, nodes]);
-
   const focusNodeIds = useMemo(() => {
-    if (!selectedGenre && !searchFocusedIds) return null;
-
-    const ids = new Set();
-    if (selectedGenre) getConnectedNodeIds(selectedGenre.id, edges).forEach((id) => ids.add(id));
-    if (searchFocusedIds) searchFocusedIds.forEach((id) => ids.add(id));
-
-    return ids;
-  }, [selectedGenre, searchFocusedIds, edges]);
+    if (!selectedGenre) return null;
+    return getConnectedNodeIds(selectedGenre.id, edges);
+  }, [selectedGenre, edges]);
 
   const focusedNodes = useMemo(
     () =>
       nodes.map((node) => {
-        if (!focusNodeIds)
-          return { ...node, data: { ...node.data, isSelected: false, isDimmed: false } };
-
-        const isSelected = selectedGenre?.id === node.id;
-        const isFocused = focusNodeIds.has(node.id);
-
+        const isSelected = selectedGenre?.id === node.id || arrowSelection === node.id;
+        const isFocused = focusNodeIds?.has(node.id) ?? true;
         return { ...node, data: { ...node.data, isSelected, isDimmed: !isFocused } };
       }),
-    [nodes, focusNodeIds, selectedGenre]
+    [nodes, focusNodeIds, selectedGenre, arrowSelection]
   );
 
   const focusedEdges = useMemo(
@@ -142,20 +133,34 @@ export default function MapPage() {
     [edges, focusNodeIds]
   );
 
+  /* ---------- React Flow instance ---------- */
+  const setReactFlowInstance = (instance) => {
+    reactFlowInstance.current = instance;
+    instance.fitView({ padding: 0.2, minZoom: 0.9, maxZoom: 1 });
+    instance.setViewport({ ...instance.getViewport(), zoom: 0.95 });
+  };
 
-  const reactFlowWrapper = useRef(null);
-  const [reactFlowInstance, setReactFlowInstance] = useState(null);
-
+  /* ---------- Arrow navigation ---------- */
   useEffect(() => {
-    if (!reactFlowInstance) return;
-    reactFlowInstance.fitView({ padding: 0.2, minZoom: 0.9, maxZoom: 1 });
-    reactFlowInstance.setViewport({ ...reactFlowInstance.getViewport(), zoom: 0.95 });
-  }, [reactFlowInstance]);
+    const handleKeyDown = (e) => {
+      if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) return;
+      e.preventDefault();
+
+      const startId = arrowSelection || selectedGenre?.id || focusedNodes[0]?.id;
+      if (!startId) return;
+
+      const newId = findDirectionalNode(startId, e.key, focusedNodes, edges);
+      setArrowSelection(newId);
+      setSelectedGenre(focusedNodes.find((n) => n.id === newId)?.data.genre || null);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [arrowSelection, focusedNodes, selectedGenre, edges]);
 
   /* ==================== RENDER ==================== */
   return (
-    <div ref={reactFlowWrapper} style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}>
-
+    <div style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}>
       <MapBackground selectedGenre={selectedGenre} />
 
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -167,7 +172,10 @@ export default function MapPage() {
           nodeTypes={nodeTypes}
           fitView={false}
           onInit={setReactFlowInstance}
-          onPaneClick={() => setSelectedGenre(null)}
+          onPaneClick={() => {
+            setSelectedGenre(null);
+            setArrowSelection(null);
+          }}
         >
           <svg style={{ position: 'absolute', width: 0, height: 0 }}>
             <defs>

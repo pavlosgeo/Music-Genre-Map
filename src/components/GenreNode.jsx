@@ -12,9 +12,7 @@ export default function GenreNode({ data }) {
 
   useLayoutEffect(() => {
     if (!hovered || !nodeRef.current) return;
-
     const rect = nodeRef.current.getBoundingClientRect();
-
     setTooltipPos({
       top: rect.bottom + 8,
       left: rect.left + rect.width / 2,
@@ -28,7 +26,7 @@ export default function GenreNode({ data }) {
         className={`
           genre-node
           gradient-${genre.id}
-          ${isSelected ? 'is-selected' : ''}
+          ${isSelected ? 'is-selected is-keyboard' : ''}
           ${isDimmed ? 'is-dimmed' : ''}
         `}
         onMouseEnter={() => setHovered(true)}
