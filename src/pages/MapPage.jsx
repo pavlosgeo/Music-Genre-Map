@@ -13,7 +13,6 @@ import SearchBar from '../components/SearchBar';
 import dagre from 'dagre';
 import { fetchSpotifyToken } from '../utils/spotifyAuth';
 
-/* -------------------- React Flow setup -------------------- */
 const nodeTypes = { genre: GenreNode };
 const nodeWidth = 150;
 const nodeHeight = 50;
@@ -53,7 +52,7 @@ const getConnectedNodeIds = (genreId, edges) => {
   return connected;
 };
 
-/* ==================== MAP PAGE ==================== */
+
 export default function MapPage() {
   const [selectedGenre, setSelectedGenre] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -143,7 +142,7 @@ export default function MapPage() {
     [edges, focusNodeIds]
   );
 
-  /* ---------- React Flow instance ---------- */
+
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
 
@@ -156,13 +155,11 @@ export default function MapPage() {
   /* ==================== RENDER ==================== */
   return (
     <div ref={reactFlowWrapper} style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}>
-      {/* Background */}
+
       <MapBackground selectedGenre={selectedGenre} />
 
-      {/* Search bar */}
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-      {/* React Flow */}
       <div className="reactflow-wrapper">
         <ReactFlow
           nodes={focusedNodes}
