@@ -1,3 +1,4 @@
+/* Root layout */
 .landing-root {
     position: relative;
     width: 100%;
@@ -8,7 +9,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-
+/* Gradient background */
 .landing-bg-gradient {
     position: absolute;
     inset: 0;
@@ -19,6 +20,7 @@
     z-index: 0;
 }
 
+/* Subtle noise overlay */
 .landing-bg-noise {
     position: absolute;
     inset: 0;
@@ -27,7 +29,7 @@
     pointer-events: none;
 }
 
-
+/* Main content container */
 .landing-content {
     position: relative;
     z-index: 2;
@@ -40,7 +42,7 @@
     justify-content: center;
 }
 
-
+/* Heading block */
 .landing-heading {
     display: flex;
     flex-direction: column;
@@ -62,7 +64,7 @@
     -webkit-text-fill-color: transparent;
 }
 
-
+/* Description text */
 .landing-description {
     max-width: 620px;
     font-size: 1.25rem;
@@ -71,12 +73,15 @@
     margin-bottom: 3rem;
 }
 
-
+/* CTA area */
 .landing-actions {
     display: flex;
     align-items: center;
+    gap: 1rem; /* spacing between buttons */
+    margin-bottom: 3rem;
 }
 
+/* Map CTA button */
 .landing-cta {
     padding: 14px 32px;
     font-size: 1.05rem;
@@ -101,6 +106,26 @@
         0 0 25px rgba(255, 255, 255, 0.15);
 }
 
+/* Spotify login button */
+.spotify-login-btn {
+    padding: 14px 32px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #1DB954, #1ed760);
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.spotify-login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+/* Footer */
 .landing-footer {
     position: absolute;
     bottom: 1.5rem;
@@ -162,7 +187,7 @@
 .landing-tutorial-arrow {
     position: absolute;
     top: 50%;
-    right: -70px; /* position arrow outside the step box */
+    right: -70px;
     transform: translateY(-50%);
 }
 

@@ -141,30 +141,30 @@ export default function MapPage() {
   };
 
   /* ---------- Arrow navigation ---------- */
-useEffect(() => {
-  const handleKeyDown = (e) => {
-    // Arrow key navigation
-    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-      e.preventDefault();
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Arrow key navigation
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+        e.preventDefault();
 
-      const startId = arrowSelection || selectedGenre?.id || focusedNodes[0]?.id;
-      if (!startId) return;
+        const startId = arrowSelection || selectedGenre?.id || focusedNodes[0]?.id;
+        if (!startId) return;
 
-      const newId = findDirectionalNode(startId, e.key, focusedNodes, edges);
-      setArrowSelection(newId);
-      setSelectedGenre(focusedNodes.find((n) => n.id === newId)?.data.genre || null);
-    }
+        const newId = findDirectionalNode(startId, e.key, focusedNodes, edges);
+        setArrowSelection(newId);
+        setSelectedGenre(focusedNodes.find((n) => n.id === newId)?.data.genre || null);
+      }
 
-    // Escape key clears selection
-    if (e.key === 'Escape') {
-      setArrowSelection(null);
-      setSelectedGenre(null);
-    }
-  };
+      // Escape key clears selection
+      if (e.key === 'Escape') {
+        setArrowSelection(null);
+        setSelectedGenre(null);
+      }
+    };
 
-  window.addEventListener('keydown', handleKeyDown);
-  return () => window.removeEventListener('keydown', handleKeyDown);
-}, [arrowSelection, focusedNodes, selectedGenre, edges]);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [arrowSelection, focusedNodes, selectedGenre, edges]);
 
 
   /* ==================== RENDER ==================== */

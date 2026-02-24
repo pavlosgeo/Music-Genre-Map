@@ -2,6 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/LandingPage.css';
+import { redirectToSpotifyAuth } from '../utils/spotifyAuth';
 
 export default function LandingPage() {
     const navigate = useNavigate();
@@ -31,9 +32,7 @@ export default function LandingPage() {
 
             <main className="landing-content">
                 <div className="landing-heading">
-                    <span className="landing-heading-line">
-                        Music Genres,
-                    </span>
+                    <span className="landing-heading-line">Music Genres,</span>
                     <span className="landing-heading-line landing-heading-accent">
                         Visually Connected
                     </span>
@@ -41,12 +40,12 @@ export default function LandingPage() {
 
                 <div className="landing-description">
                     <span>
-                        Explore how sounds evolved, collided, and influenced each other — 
+                        Explore how sounds evolved, collided, and influenced each other —
                         from rock to electronic and beyond.
                     </span>
                 </div>
 
-                {/* 3-Step Tutorial with Curved SVG Arrows */}
+                {/* 3-Step Tutorial */}
                 <div className="landing-tutorial">
                     {steps.map((step, idx) => (
                         <div key={idx} className="landing-tutorial-step">
@@ -56,11 +55,7 @@ export default function LandingPage() {
                                 <p>{step.description}</p>
                             </div>
                             {idx < steps.length - 1 && (
-                                <svg
-                                    className="landing-tutorial-arrow"
-                                    width="60"
-                                    height="40"
-                                >
+                                <svg className="landing-tutorial-arrow" width="60" height="40">
                                     <defs>
                                         <linearGradient id={`grad-${idx}`} x1="0%" y1="0%" x2="100%" y2="0%">
                                             <stop offset="0%" stopColor="#a78bfa" />
@@ -80,12 +75,17 @@ export default function LandingPage() {
                     ))}
                 </div>
 
+                {/* Actions */}
                 <div className="landing-actions">
-                    <button
-                        className="landing-cta"
-                        onClick={() => navigate('/map')}
-                    >
+                    <button className="landing-cta" onClick={() => navigate('/map')}>
                         Explore the Map
+                    </button>
+
+                    <button
+                        className="spotify-login-btn"
+                        onClick={redirectToSpotifyAuth}
+                    >
+                        Login with Spotify
                     </button>
                 </div>
             </main>
@@ -93,7 +93,10 @@ export default function LandingPage() {
             <footer className="landing-footer">
                 <span>Interactive Music Genre Map</span> <br />
                 <span>
-                    Built by <a href="https://github.com/pavlosgeo" target="_blank" rel="noopener noreferrer">@pavlosgeo</a>
+                    Built by{' '}
+                    <a href="https://github.com/pavlosgeo" target="_blank" rel="noopener noreferrer">
+                        @pavlosgeo
+                    </a>
                 </span>
             </footer>
         </div>
