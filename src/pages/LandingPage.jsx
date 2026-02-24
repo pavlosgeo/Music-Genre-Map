@@ -8,7 +8,7 @@ export default function LandingPage() {
 
     const steps = [
         {
-            icon: '🖱️',
+            icon: '🎹',
             title: 'Browse Genres',
             description: 'Hover or click a node to explore a genre.',
         },
@@ -18,7 +18,7 @@ export default function LandingPage() {
             description: 'Lines show how genres influenced each other.',
         },
         {
-            icon: '🎹',
+            icon: '🧭',
             title: 'Navigate Easily',
             description: 'Use arrow keys to move between connected genres.',
         },
