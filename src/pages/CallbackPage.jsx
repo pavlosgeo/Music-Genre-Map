@@ -1,28 +1,41 @@
 // src/pages/CallbackPage.jsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchSpotifyToken } from '../utils/spotifyAuth';
 
 export default function CallbackPage() {
     const navigate = useNavigate();
+    const hasFetched = useRef(false); // Prevent double execution
 
     useEffect(() => {
+        if (hasFetched.current) return; // Skip if already fetched
+        hasFetched.current = true;
+
         const params = new URLSearchParams(window.location.search);
         const code = params.get('code');
 
-        if (code) {
-            fetchSpotifyToken(code).then((data) => {
+        if (!code) {
+            console.error('No Spotify authorization code found');
+            navigate('/');
+            return;
+        }
+
+        fetchSpotifyToken(code)
+            .then((data) => {
                 if (data?.access_token) {
-                    // Successfully got token, redirect to map
+                    // Token successfully obtained
                     navigate('/map');
                 } else {
+                    console.error('Spotify login failed', data);
                     alert('Spotify login failed');
                     navigate('/');
                 }
+            })
+            .catch((err) => {
+                console.error('Spotify token fetch error:', err);
+                alert('Spotify login failed');
+                navigate('/');
             });
-        } else {
-            navigate('/');
-        }
     }, [navigate]);
 
     return (

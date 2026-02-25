@@ -6,7 +6,7 @@ export default function SidePanel({ genre, onClose }) {
   if (!genre) return null;
 
   // 🔑 Get Spotify token (assumes you already store it elsewhere)
-  const spotifyToken = sessionStorage.getItem('spotify_token');
+  const spotifyToken = localStorage.getItem('spotify_token');
 
   return (
     <div className="side-panel">

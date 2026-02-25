@@ -6,6 +6,12 @@ export default function ArtistTag({ name, spotifyToken }) {
   const [loading, setLoading] = useState(false);
 
   const handleHover = async () => {
+    // 🔒 HARD GUARD: no token, no request
+    if (!spotifyToken) {
+      console.warn('No Spotify token available');
+      return;
+    }
+
     if (artist || loading) return;
 
     try {
