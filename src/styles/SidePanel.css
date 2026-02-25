@@ -137,13 +137,50 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
+
+.artist-preview-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.artist-preview strong {
+  line-height: 1.2;
+}
+
 /* Artist preview link */
 .artist-preview a {
+  display: inline-block;
   color: #1db954;
   font-size: 0.85rem;
   text-decoration: none;
   font-weight: 600;
 }
+
+.artist-top-tracks {
+  margin-top: 2px;
+}
+
+.artist-top-tracks span {
+  display: block;
+  font-size: 0.72rem;
+  color: #bcbcbc;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.artist-top-tracks ul {
+  margin: 4px 0 0;
+  padding-left: 16px;
+}
+
+.artist-top-tracks li {
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: #f4f4f4;
+}
+
 
 .artist-preview a:hover {
   text-decoration: underline;

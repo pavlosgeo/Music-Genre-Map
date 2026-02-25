@@ -35,15 +35,29 @@ export default function ArtistTag({ name, spotifyToken }) {
       {artist && (
         <div className="artist-preview">
           {artist.image && <img src={artist.image} alt={artist.name} />}
-          <div>
+          <div className="artist-preview-content">
             <strong>{artist.name}</strong>
-            <a
-              href={artist.spotifyUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Open on Spotify
-            </a>
+            {artist.spotifyUrl && (
+              <a
+                href={artist.spotifyUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Open ${artist.name} on Spotify`}
+              >
+                Open in Spotify
+              </a>
+            )}
+
+            {artist.topTracks?.length > 0 && (
+              <div className="artist-top-tracks">
+                <span>Top tracks:</span>
+                <ul>
+                  {artist.topTracks.map((track) => (
+                    <li key={track}>{track}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       )}
