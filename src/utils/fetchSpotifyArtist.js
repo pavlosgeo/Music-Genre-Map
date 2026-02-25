@@ -52,11 +52,32 @@ export async function fetchSpotifyArtist(name, token) {
 
   if (!bestMatch) return null;
 
+  let topTracks = [];
+
+  try {
+    const topTracksRes = await fetch(
+      `https://api.spotify.com/v1/artists/${bestMatch.id}/top-tracks?market=US`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (topTracksRes.ok) {
+      const topTracksData = await topTracksRes.json();
+      topTracks = (topTracksData?.tracks || []).slice(0, 3).map((track) => track.name);
+    }
+  } catch (error) {
+    console.warn('Could not fetch top tracks for artist', name, error);
+  }
+
   const simplified = {
     name: bestMatch.name,
     image: bestMatch.images?.[0]?.url,
     spotifyUrl: bestMatch.external_urls?.spotify,
     followers: bestMatch.followers?.total ?? 0,
+    topTracks,
   };
 
   setCachedArtist(name, simplified);
