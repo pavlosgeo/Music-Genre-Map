@@ -62,24 +62,19 @@ body,
   opacity: 1;
 }
 
-@media (max-width: 900px) {
-  .react-flow__controls {
-    transform: scale(0.9);
-    transform-origin: bottom left;
-  }
-
-  .map-minimap {
-    display: none;
-  }
-}
-
-@media (max-width: 640px) {
+@media only screen and (max-width: 768px) {
   .map-page {
     height: 100dvh;
   }
 
   .react-flow__controls {
+    transform: scale(0.9);
+    transform-origin: bottom left;
     left: 10px;
     bottom: 72px;
+  }
+
+  .map-minimap {
+    display: none;
   }
 }
