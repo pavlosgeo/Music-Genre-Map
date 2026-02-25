@@ -1,94 +1,73 @@
-// spotifyAuth.js
-// Handles Spotify PKCE flow and token fetching for Vite projects
+// src/utils/spotifyAuth.js
+// Spotify PKCE auth for Vite + ngrok
 
-// Encode string to Base64 URL safe
-function base64UrlEncode(str) {
-  return btoa(str)
+function base64UrlEncode(buffer) {
+  return btoa(String.fromCharCode(...new Uint8Array(buffer)))
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
     .replace(/=+$/, '');
 }
 
-// Generate random code verifier for PKCE
 function generateCodeVerifier(length = 128) {
-  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
-  let verifier = '';
-  for (let i = 0; i < length; i++) {
-    verifier += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return verifier;
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+  return Array.from(crypto.getRandomValues(new Uint8Array(length)))
+    .map(x => chars[x % chars.length])
+    .join('');
 }
 
-// Generate code challenge from verifier using SHA256
 async function generateCodeChallenge(verifier) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(verifier);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashStr = String.fromCharCode(...hashArray);
-  return base64UrlEncode(hashStr);
+  const data = new TextEncoder().encode(verifier);
+  const digest = await crypto.subtle.digest('SHA-256', data);
+  return base64UrlEncode(digest);
 }
 
-// Redirect user to Spotify authorization page
+const REDIRECT_URI = `${window.location.origin}/callback`;
+
 export async function redirectToSpotifyAuth() {
   const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-  const redirectUri = window.location.origin + '/map';
 
-  const codeVerifier = generateCodeVerifier();
-  const codeChallenge = await generateCodeChallenge(codeVerifier);
+  const verifier = generateCodeVerifier();
+  const challenge = await generateCodeChallenge(verifier);
 
-  sessionStorage.setItem('spotify_code_verifier', codeVerifier);
-
-  const authUrl = new URL('https://accounts.spotify.com/authorize');
-  authUrl.searchParams.set('client_id', clientId);
-  authUrl.searchParams.set('response_type', 'code');
-  authUrl.searchParams.set('redirect_uri', redirectUri);
-  authUrl.searchParams.set('code_challenge_method', 'S256');
-  authUrl.searchParams.set('code_challenge', codeChallenge);
-  authUrl.searchParams.set('scope', 'user-read-private user-read-email');
-
-  window.location.href = authUrl.toString();
-}
-
-// Exchange authorization code for access token
-export async function fetchSpotifyToken(code) {
-  const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-  const redirectUri = window.location.origin + '/map';
-  const codeVerifier = sessionStorage.getItem('spotify_code_verifier');
-
-  if (!codeVerifier) {
-    console.error('No code verifier found in sessionStorage');
-    return null;
-  }
+  sessionStorage.setItem('spotify_code_verifier', verifier);
 
   const params = new URLSearchParams({
     client_id: clientId,
-    grant_type: 'authorization_code',
-    code,
-    redirect_uri: redirectUri,
-    code_verifier: codeVerifier,
+    response_type: 'code',
+    redirect_uri: REDIRECT_URI,
+    code_challenge_method: 'S256',
+    code_challenge: challenge,
+    scope: 'user-read-private user-read-email',
   });
 
-  try {
-    const res = await fetch('https://accounts.spotify.com/api/token', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: params.toString(),
-    });
+  window.location.href = `https://accounts.spotify.com/authorize?${params}`;
+}
 
-    const data = await res.json();
+export async function fetchSpotifyToken(code) {
+  const verifier = sessionStorage.getItem('spotify_code_verifier');
+  if (!verifier) throw new Error('Missing PKCE verifier');
 
-    if (data.error) {
-      console.error('Spotify token error:', data);
-      return null;
-    }
+  const body = new URLSearchParams({
+    client_id: import.meta.env.VITE_SPOTIFY_CLIENT_ID,
+    grant_type: 'authorization_code',
+    code,
+    redirect_uri: REDIRECT_URI,
+    code_verifier: verifier,
+  });
 
-    // Store access token in sessionStorage
-    sessionStorage.setItem('spotify_token', data.access_token);
+  const res = await fetch('https://accounts.spotify.com/api/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body,
+  });
 
-    return data;
-  } catch (err) {
-    console.error('Failed to fetch Spotify token:', err);
-    return null;
+  const data = await res.json();
+
+  if (!res.ok) {
+    console.error('Spotify token error:', data);
+    throw new Error('Spotify login failed');
   }
+
+  sessionStorage.setItem('spotify_token', data.access_token);
+  return data;
 }
