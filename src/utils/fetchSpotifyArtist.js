@@ -18,15 +18,15 @@ export async function fetchSpotifyArtist(name, token) {
   if (!res.ok) throw new Error('Spotify fetch failed');
 
   const data = await res.json();
-  const artist = data.artists.items[0];
+  const artist = data?.artists?.items?.[0];
 
   if (!artist) return null;
 
   const simplified = {
     name: artist.name,
     image: artist.images?.[0]?.url,
-    spotifyUrl: artist.external_urls.spotify,
-    followers: artist.followers.total,
+    spotifyUrl: artist.external_urls?.spotify,
+    followers: artist.followers?.total ?? 0,
   };
 
   setCachedArtist(name, simplified);
