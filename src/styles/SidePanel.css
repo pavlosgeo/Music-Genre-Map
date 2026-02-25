@@ -13,6 +13,8 @@
   backdrop-filter: blur(8px);
   border-left: 1px solid rgba(255, 255, 255, 0.05);
   transition: transform 0.3s ease, opacity 0.3s ease;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 /* Close button */
@@ -97,7 +99,8 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
 }
 
-.artist-tag:hover {
+.artist-tag:hover,
+.artist-tag.is-open {
   z-index: 20;
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
@@ -126,7 +129,8 @@
   transform-origin: bottom right;
 }
 
-.artist-tag:hover .artist-preview {
+.artist-tag:hover .artist-preview,
+.artist-tag.is-open .artist-preview {
   opacity: 1;
   pointer-events: auto;
 }
@@ -207,4 +211,78 @@
   font-size: 0.95rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.85);
+}
+
+@media (max-width: 900px) {
+  .side-panel {
+    width: min(94vw, 420px);
+    padding: 18px 16px 20px;
+  }
+
+  .close-btn {
+    top: 10px;
+    right: 10px;
+    font-size: 1.8rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.25);
+    line-height: 1;
+  }
+
+  .genre-title {
+    font-size: 1.5rem;
+    padding-right: 36px;
+  }
+
+  .genre-description,
+  .genre-roots p {
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .artist-preview {
+    right: auto;
+    left: 0;
+    bottom: calc(100% + 8px);
+    width: min(280px, calc(100vw - 36px));
+    transform-origin: bottom left;
+  }
+}
+
+@media (max-width: 640px) {
+  .side-panel {
+    width: 100%;
+    max-height: 58vh;
+    height: auto;
+    top: auto;
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .genre-meta {
+    gap: 8px;
+    font-size: 0.85rem;
+  }
+
+  .artist-tag {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+
+  .artist-preview {
+    position: fixed;
+    left: 50%;
+    top: auto;
+    bottom: 60vh;
+    transform: translateX(-50%);
+    width: min(320px, calc(100vw - 20px));
+    max-height: 34vh;
+    overflow-y: auto;
+    z-index: 1100;
+  }
 }
