@@ -60,34 +60,6 @@ export async function fetchSpotifyArtist(name, token) {
       .filter(Boolean)
       .slice(0, 3);
 
-  const fetchArtistTopTracks = async (market) => {
-    const params = new URLSearchParams();
-    if (market) params.set('market', market);
-
-    const topTracksRes = await fetch(
-      `https://api.spotify.com/v1/artists/${bestMatch.id}/top-tracks${params.toString() ? `?${params.toString()}` : ''}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    if (topTracksRes.status === 403) {
-      // Some token types cannot access this endpoint in certain markets.
-      // Return an empty list so the next resolver can gracefully take over.
-      return [];
-    }
-
-    if (!topTracksRes.ok) {
-      const errorBody = await topTracksRes.text();
-      throw new Error(`Top tracks request failed (${topTracksRes.status}): ${errorBody}`);
-    }
-
-    const topTracksData = await topTracksRes.json();
-    return readTrackNames(topTracksData?.tracks);
-  };
-
   const fetchTrackSearchFallback = async () => {
     const query = `artist:"${bestMatch.name}"`;
     const searchRes = await fetch(
@@ -108,10 +80,11 @@ export async function fetchSpotifyArtist(name, token) {
     return readTrackNames(searchData?.tracks?.items);
   };
 
-  const topTrackResolvers = [
-    () => fetchArtistTopTracks('US'),
-    fetchTrackSearchFallback,
-  ];
+  // NOTE:
+  // The Spotify /artists/{id}/top-tracks endpoint frequently fails in browser-only
+  // PKCE flows depending on account/app access mode. We use track search instead,
+  // which is stable across token types and still provides useful top songs.
+  const topTrackResolvers = [fetchTrackSearchFallback];
 
   for (const resolveTopTracks of topTrackResolvers) {
     try {
