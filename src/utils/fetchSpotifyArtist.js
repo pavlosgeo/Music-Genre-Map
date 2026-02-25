@@ -73,6 +73,12 @@ export async function fetchSpotifyArtist(name, token) {
       }
     );
 
+    if (topTracksRes.status === 403) {
+      // Some token types cannot access this endpoint in certain markets.
+      // Return an empty list so the next resolver can gracefully take over.
+      return [];
+    }
+
     if (!topTracksRes.ok) {
       const errorBody = await topTracksRes.text();
       throw new Error(`Top tracks request failed (${topTracksRes.status}): ${errorBody}`);
@@ -103,7 +109,6 @@ export async function fetchSpotifyArtist(name, token) {
   };
 
   const topTrackResolvers = [
-    () => fetchArtistTopTracks('from_token'),
     () => fetchArtistTopTracks('US'),
     fetchTrackSearchFallback,
   ];
