@@ -54,9 +54,18 @@ export async function fetchSpotifyArtist(name, token) {
 
   let topTracks = [];
 
-  try {
+  const readTrackNames = (items) =>
+    (items || [])
+      .map((track) => track?.name)
+      .filter(Boolean)
+      .slice(0, 3);
+
+  const fetchArtistTopTracks = async (market) => {
+    const params = new URLSearchParams();
+    if (market) params.set('market', market);
+
     const topTracksRes = await fetch(
-      `https://api.spotify.com/v1/artists/${bestMatch.id}/top-tracks?market=US`,
+      `https://api.spotify.com/v1/artists/${bestMatch.id}/top-tracks${params.toString() ? `?${params.toString()}` : ''}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -64,9 +73,43 @@ export async function fetchSpotifyArtist(name, token) {
       }
     );
 
-    if (topTracksRes.ok) {
-      const topTracksData = await topTracksRes.json();
-      topTracks = (topTracksData?.tracks || []).slice(0, 3).map((track) => track.name);
+    if (!topTracksRes.ok) {
+      const errorBody = await topTracksRes.text();
+      throw new Error(`Top tracks request failed (${topTracksRes.status}): ${errorBody}`);
+    }
+
+    const topTracksData = await topTracksRes.json();
+    return readTrackNames(topTracksData?.tracks);
+  };
+
+  const fetchTrackSearchFallback = async () => {
+    const query = `artist:"${bestMatch.name}"`;
+    const searchRes = await fetch(
+      `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=5`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!searchRes.ok) {
+      const errorBody = await searchRes.text();
+      throw new Error(`Track search fallback failed (${searchRes.status}): ${errorBody}`);
+    }
+
+    const searchData = await searchRes.json();
+    return readTrackNames(searchData?.tracks?.items);
+  };
+
+  try {
+    topTracks = await fetchArtistTopTracks('US');
+    if (topTracks.length === 0) {
+      topTracks = await fetchArtistTopTracks();
+    }
+
+    if (topTracks.length === 0) {
+      topTracks = await fetchTrackSearchFallback();
     }
   } catch (error) {
     console.warn('Could not fetch top tracks for artist', name, error);
