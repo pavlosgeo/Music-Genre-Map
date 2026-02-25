@@ -29,40 +29,47 @@ Explore relationships between rock and electronic genres, view their history, or
 
 ## Tech Stack
 
-- **Frontend**: React, React Flow, JavaScript  
-- **Graph layout**: Dagre  
-- **Styling**: CSS modules  
-- **Data**: Local JSON-like structures for genres and influences  
 
----
 
 ### Project Structure
+
+**Frontend**: React, React Flow, JavaScript  
+**Graph layout**: Dagre  
+**Styling**: CSS modules  
+**Data**: Local JSON-like structures for genres and influences  
+**APIs**: Unsplash (backgrounds), Spotify (artist info)
 ```
 src/
+├─ App.jsx
+├─ index.css
+├─ main.jsx
+├─ assets/
+│   └─ react.svg
 ├─ components/
-│ ├─ GenreNode.jsx # Custom node for React Flow
-│ ├─ SidePanel.jsx # Side panel showing genre details
-│ ├─ SearchBar.jsx # Search bar component
-│ └─ MapBackground.jsx   # Dynamic Unsplash background
+│   ├─ ArtistTag.jsx
+│   ├─ GenreNode.jsx
+│   ├─ MapBackground.jsx
+│   ├─ SearchBar.jsx
+│   └─ SidePanel.jsx
 ├─ data/
-│ ├─ genres.js # Genre dataset
-│ ├─ influences.js # Genre influence connections
+│   ├─ genres.js
+│   └─ influences.js
 ├─ pages/
-│ ├─ MapPage.jsx # Page containing Music Genres/Connections
-│ ├─ LandingPage.jsx # User Landing page 
+│   ├─ CallbackPage.jsx
+│   ├─ LandingPage.jsx
+│   └─ MapPage.jsx
 ├─ styles/
-│ ├─ style.css # Global styling
-│ ├─ SidePanel.css   # Side panel styling 
-│ ├─ GenreNode.css   # Genre Nodes styling
-│ ├─ MapBackground.css # Unsplash API to call background pictures for genre nodes
-│ ├─ SearchBar.css # Search Bar styling
-│ └─
+│   ├─ GenreNode.css
+│   ├─ LandingPage.css
+│   ├─ MapBackground.css
+│   ├─ SearchBar.css
+│   ├─ SidePanel.css
+│   └─ style.css
 ├─ utils/
-  ├─ navigation.js # Helper for arrow navigation.
-│ └─ 
-│ ├─ .env # Unsplash/Spotify API access key used to fetch images from Unsplash/Lists from Spotify
-│ ├─ App.jsx # Renders MapPage component
-│ └─
+│   ├─ fetchSpotifyArtist.js
+│   ├─ navigation.js
+│   ├─ spotifyAuth.js
+│   └─ spotifyCache.js
 ```
 
 ## Getting Started
