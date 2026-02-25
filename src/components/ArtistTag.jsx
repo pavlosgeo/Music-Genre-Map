@@ -1,18 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { fetchSpotifyArtist } from '../utils/fetchSpotifyArtist';
 
 export default function ArtistTag({ name, spotifyToken }) {
   const [artist, setArtist] = useState(null);
   const [loading, setLoading] = useState(false);
   const [loadAttempted, setLoadAttempted] = useState(false);
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const tagRef = useRef(null);
 
-  const loadArtistPreview = async () => {
+  const handleHover = async () => {
     // 🔒 HARD GUARD: no token, no request
     if (!spotifyToken) {
       console.warn('No Spotify token available');
-      setLoadAttempted(true);
       return;
     }
 
@@ -30,43 +27,15 @@ export default function ArtistTag({ name, spotifyToken }) {
     }
   };
 
-  const handleHover = () => {
-    loadArtistPreview();
-    setIsPreviewOpen(true);
-  };
-
-  const handleClick = (event) => {
-    event.stopPropagation();
-    if (!isPreviewOpen) {
-      loadArtistPreview();
-    }
-    setIsPreviewOpen((prev) => !prev);
-  };
-
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (!tagRef.current?.contains(event.target)) {
-        setIsPreviewOpen(false);
-      }
-    };
-
-    document.addEventListener('pointerdown', handleOutsideClick);
-    return () => {
-      document.removeEventListener('pointerdown', handleOutsideClick);
-    };
-  }, []);
-
   return (
     <div
-      ref={tagRef}
-      className={`artist-tag ${isPreviewOpen ? 'is-open' : ''}`}
+      className="artist-tag"
       onMouseEnter={handleHover}
-      onClick={handleClick}
     >
       {name}
 
       {(artist || loading || loadAttempted) && (
-        <div className="artist-preview" role="dialog" aria-label={`${name} preview`}>
+        <div className="artist-preview">
           {artist?.image && <img src={artist.image} alt={artist.name} />}
           <div className="artist-preview-content">
             <strong>{artist?.name || name}</strong>
@@ -76,7 +45,6 @@ export default function ArtistTag({ name, spotifyToken }) {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`Open ${artist.name} on Spotify`}
-                onClick={(event) => event.stopPropagation()}
               >
                 Open in Spotify
               </a>
