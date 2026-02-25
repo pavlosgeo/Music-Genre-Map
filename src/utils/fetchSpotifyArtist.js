@@ -80,10 +80,7 @@ export async function fetchSpotifyArtist(name, token) {
     return readTrackNames(searchData?.tracks?.items);
   };
 
-  // NOTE:
-  // The Spotify /artists/{id}/top-tracks endpoint frequently fails in browser-only
-  // PKCE flows depending on account/app access mode. We use track search instead,
-  // which is stable across token types and still provides useful top songs.
+
   const topTrackResolvers = [fetchTrackSearchFallback];
 
   for (const resolveTopTracks of topTrackResolvers) {
