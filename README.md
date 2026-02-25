@@ -43,8 +43,7 @@ src/
 ├─ App.jsx
 ├─ index.css
 ├─ main.jsx
-├─ assets/
-│   └─ react.svg
+│  
 ├─ components/
 │   ├─ ArtistTag.jsx
 │   ├─ GenreNode.jsx
