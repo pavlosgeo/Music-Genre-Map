@@ -4,6 +4,7 @@ import { fetchSpotifyArtist } from '../utils/fetchSpotifyArtist';
 export default function ArtistTag({ name, spotifyToken }) {
   const [artist, setArtist] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [loadAttempted, setLoadAttempted] = useState(false);
 
   const handleHover = async () => {
     // 🔒 HARD GUARD: no token, no request
@@ -22,6 +23,7 @@ export default function ArtistTag({ name, spotifyToken }) {
       console.error(e);
     } finally {
       setLoading(false);
+      setLoadAttempted(true);
     }
   };
 
@@ -32,12 +34,12 @@ export default function ArtistTag({ name, spotifyToken }) {
     >
       {name}
 
-      {artist && (
+      {(artist || loading || loadAttempted) && (
         <div className="artist-preview">
-          {artist.image && <img src={artist.image} alt={artist.name} />}
+          {artist?.image && <img src={artist.image} alt={artist.name} />}
           <div className="artist-preview-content">
-            <strong>{artist.name}</strong>
-            {artist.spotifyUrl && (
+            <strong>{artist?.name || name}</strong>
+            {artist?.spotifyUrl && (
               <a
                 href={artist.spotifyUrl}
                 target="_blank"
@@ -48,16 +50,20 @@ export default function ArtistTag({ name, spotifyToken }) {
               </a>
             )}
 
-            {artist.topTracks?.length > 0 && (
-              <div className="artist-top-tracks">
-                <span>Top tracks:</span>
+            <div className="artist-top-tracks">
+              <span>Top tracks:</span>
+              {loading && <p>Loading top tracks…</p>}
+              {!loading && artist?.topTracks?.length > 0 && (
                 <ul>
-                  {artist.topTracks.map((track) => (
-                    <li key={track}>{track}</li>
+                  {artist.topTracks.map((track, index) => (
+                    <li key={`${track}-${index}`}>{track}</li>
                   ))}
                 </ul>
-              </div>
-            )}
+              )}
+              {!loading && (!artist?.topTracks || artist.topTracks.length === 0) && (
+                <p>No top tracks available right now.</p>
+              )}
+            </div>
           </div>
         </div>
       )}

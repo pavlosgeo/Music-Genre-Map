@@ -102,17 +102,19 @@ export async function fetchSpotifyArtist(name, token) {
     return readTrackNames(searchData?.tracks?.items);
   };
 
-  try {
-    topTracks = await fetchArtistTopTracks('US');
-    if (topTracks.length === 0) {
-      topTracks = await fetchArtistTopTracks();
-    }
+  const topTrackResolvers = [
+    () => fetchArtistTopTracks('from_token'),
+    () => fetchArtistTopTracks('US'),
+    fetchTrackSearchFallback,
+  ];
 
-    if (topTracks.length === 0) {
-      topTracks = await fetchTrackSearchFallback();
+  for (const resolveTopTracks of topTrackResolvers) {
+    try {
+      topTracks = await resolveTopTracks();
+      if (topTracks.length > 0) break;
+    } catch (error) {
+      console.warn('Could not fetch top tracks resolver for artist', name, error);
     }
-  } catch (error) {
-    console.warn('Could not fetch top tracks for artist', name, error);
   }
 
   const simplified = {

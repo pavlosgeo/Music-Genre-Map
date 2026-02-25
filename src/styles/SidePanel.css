@@ -171,6 +171,14 @@
   letter-spacing: 0.04em;
 }
 
+
+.artist-top-tracks p {
+  margin: 4px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: #d7d7d7;
+}
+
 .artist-top-tracks ul {
   margin: 4px 0 0;
   padding-left: 16px;
