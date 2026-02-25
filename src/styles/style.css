@@ -13,13 +13,6 @@ body,
   color: #333;
 }
 
-.map-page {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-}
-
 /* React Flow container */
 .reactflow-wrapper {
   width: 100%;
@@ -60,21 +53,4 @@ body,
 
 .edge--focused {
   opacity: 1;
-}
-
-@media only screen and (max-width: 768px) {
-  .map-page {
-    height: 100dvh;
-  }
-
-  .react-flow__controls {
-    transform: scale(0.9);
-    transform-origin: bottom left;
-    left: 10px;
-    bottom: 72px;
-  }
-
-  .map-minimap {
-    display: none;
-  }
 }

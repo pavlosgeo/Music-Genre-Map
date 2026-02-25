@@ -169,7 +169,7 @@ export default function MapPage() {
 
   /* ==================== RENDER ==================== */
   return (
-    <div className="map-page">
+    <div style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}>
       <MapBackground selectedGenre={selectedGenre} />
 
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -196,7 +196,7 @@ export default function MapPage() {
             </defs>
           </svg>
 
-          <MiniMap className="map-minimap" />
+          <MiniMap />
           <Controls />
         </ReactFlow>
       </div>
