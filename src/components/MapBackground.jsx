@@ -2,31 +2,66 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/MapBackground.css';
 
-const UNSPLASH_KEY = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
+const genreImageCache = new Map();
+
+async function fetchSpotifyGenreImage(genreName, token) {
+  const cachedImage = genreImageCache.get(genreName);
+  if (cachedImage) return cachedImage;
+
+  const query = `${genreName} music`;
+  const response = await fetch(
+    `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=playlist&limit=10`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Spotify playlist search failed (${response.status})`);
+  }
+
+  const data = await response.json();
+  const playlistWithImage = data?.playlists?.items?.find(
+    (playlist) => playlist?.images?.[0]?.url
+  );
+
+  const imageUrl = playlistWithImage?.images?.[0]?.url ?? null;
+
+  if (imageUrl) {
+    genreImageCache.set(genreName, imageUrl);
+  }
+
+  return imageUrl;
+}
 
 export default function MapBackground({ selectedGenre }) {
   const [bgImage, setBgImage] = useState('');
   const [fade, setFade] = useState(false);
 
   useEffect(() => {
-    if (!selectedGenre || !UNSPLASH_KEY) return;
+    if (!selectedGenre) return;
+
+    const spotifyToken = localStorage.getItem('spotify_token');
+
+    if (!spotifyToken) {
+      return;
+    }
 
     const fetchImage = async () => {
       try {
-        const response = await fetch(
-          `https://api.unsplash.com/photos/random?query=${selectedGenre.name}+band&client_id=${UNSPLASH_KEY}`
-        );
-        if (!response.ok) throw new Error('Failed to fetch background image');
-        const data = await response.json();
-        if (data?.urls?.full) {
-          setFade(false); // start fade-out
+        const imageUrl = await fetchSpotifyGenreImage(selectedGenre.name, spotifyToken);
+
+        if (imageUrl) {
+          setFade(false);
           setTimeout(() => {
-            setBgImage(data.urls.full); // update image
-            setFade(true); // fade-in new image
-          }, 200); // small delay for smooth crossfade
+            setBgImage(imageUrl);
+            setFade(true);
+          }, 200);
         }
       } catch (error) {
-        console.error('Error fetching background image:', error);
+        console.error('Error fetching Spotify background image:', error);
       }
     };
 
