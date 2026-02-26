@@ -56,7 +56,21 @@ export default function ArtistTag({ name, spotifyToken }) {
               {!loading && artist?.topTracks?.length > 0 && (
                 <ul>
                   {artist.topTracks.map((track, index) => (
-                    <li key={`${track}-${index}`}>{track}</li>
+                    <li key={`${track.name}-${index}`}>
+                      {track.spotifyUrl ? (
+                        <a
+                          href={track.spotifyUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label={`Open ${track.name} on Spotify`}
+                          className="artist-track-link"
+                        >
+                          {track.name}
+                        </a>
+                      ) : (
+                        track.name
+                      )}
+                    </li>
                   ))}
                 </ul>
               )}
