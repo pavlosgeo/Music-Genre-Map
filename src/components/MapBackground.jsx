@@ -4,13 +4,31 @@ import '../styles/MapBackground.css';
 
 const genreImageCache = new Map();
 
+function getBestPlaylistImage(playlists = []) {
+  const playlistImages = playlists
+    .flatMap((playlist) => playlist?.images ?? [])
+    .filter((image) => image?.url);
+
+  if (!playlistImages.length) {
+    return null;
+  }
+
+  return playlistImages.reduce((best, image) => {
+    const bestArea = (best?.width ?? 0) * (best?.height ?? 0);
+    const imageArea = (image?.width ?? 0) * (image?.height ?? 0);
+
+    return imageArea > bestArea ? image : best;
+  });
+}
+
 async function fetchSpotifyGenreImage(genreName, token) {
-  const cachedImage = genreImageCache.get(genreName);
+  const cacheKey = genreName.trim().toLowerCase();
+  const cachedImage = genreImageCache.get(cacheKey);
   if (cachedImage) return cachedImage;
 
   const query = `${genreName} music`;
   const response = await fetch(
-    `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=playlist&limit=10`,
+    `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=playlist&limit=20`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -23,14 +41,11 @@ async function fetchSpotifyGenreImage(genreName, token) {
   }
 
   const data = await response.json();
-  const playlistWithImage = data?.playlists?.items?.find(
-    (playlist) => playlist?.images?.[0]?.url
-  );
-
-  const imageUrl = playlistWithImage?.images?.[0]?.url ?? null;
+  const image = getBestPlaylistImage(data?.playlists?.items);
+  const imageUrl = image?.url ?? null;
 
   if (imageUrl) {
-    genreImageCache.set(genreName, imageUrl);
+    genreImageCache.set(cacheKey, imageUrl);
   }
 
   return imageUrl;
