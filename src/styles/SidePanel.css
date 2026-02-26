@@ -210,6 +210,17 @@
 }
 
 
+.artist-top-tracks .artist-track-link {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  text-decoration: none;
+}
+
+.artist-top-tracks .artist-track-link:hover {
+  text-decoration: underline;
+}
+
 .artist-preview a:hover {
   text-decoration: underline;
 }
