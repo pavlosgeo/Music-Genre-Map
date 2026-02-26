@@ -6,6 +6,7 @@ import { redirectToSpotifyAuth } from '../utils/spotifyAuth';
 
 export default function LandingPage() {
     const navigate = useNavigate();
+    const hasSpotifyToken = Boolean(localStorage.getItem('spotify_token'));
 
     const steps = [
         {
@@ -81,12 +82,14 @@ export default function LandingPage() {
                         Explore the Map
                     </button>
 
-                    <button
-                        className="spotify-login-btn"
-                        onClick={redirectToSpotifyAuth}
-                    >
-                        Login with Spotify
-                    </button>
+                    {!hasSpotifyToken && (
+                        <button
+                            className="spotify-login-btn"
+                            onClick={redirectToSpotifyAuth}
+                        >
+                            Login with Spotify
+                        </button>
+                    )}
                 </div>
             </main>
 
