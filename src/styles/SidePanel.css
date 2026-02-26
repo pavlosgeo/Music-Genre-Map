@@ -162,34 +162,51 @@
 }
 
 .artist-top-tracks {
-  margin-top: 2px;
+  margin-top: 4px;
+  font-family: CircularSp, CircularStd, "Circular Spotify Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 .artist-top-tracks span {
   display: block;
-  font-size: 0.72rem;
-  color: #bcbcbc;
+  font-size: 0.7rem;
+  color: #b3b3b3;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
+  font-weight: 700;
 }
 
 
 .artist-top-tracks p {
   margin: 4px 0 0;
-  font-size: 0.78rem;
-  line-height: 1.35;
-  color: #d7d7d7;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: #b3b3b3;
 }
 
 .artist-top-tracks ul {
-  margin: 4px 0 0;
-  padding-left: 16px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: top-track-rank;
 }
 
 .artist-top-tracks li {
-  font-size: 0.78rem;
-  line-height: 1.35;
-  color: #f4f4f4;
+  position: relative;
+  padding-left: 18px;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.artist-top-tracks li::before {
+  counter-increment: top-track-rank;
+  content: counter(top-track-rank);
+  position: absolute;
+  left: 0;
+  color: #b3b3b3;
+  font-size: 0.75rem;
+  font-weight: 700;
 }
 
 
