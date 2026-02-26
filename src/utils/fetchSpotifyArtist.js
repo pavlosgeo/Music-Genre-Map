@@ -54,10 +54,13 @@ export async function fetchSpotifyArtist(name, token) {
 
   let topTracks = [];
 
-  const readTrackNames = (items) =>
+  const readTracks = (items) =>
     (items || [])
-      .map((track) => track?.name)
-      .filter(Boolean)
+      .map((track) => ({
+        name: track?.name,
+        spotifyUrl: track?.external_urls?.spotify,
+      }))
+      .filter((track) => Boolean(track.name))
       .slice(0, 3);
 
   const fetchTrackSearchFallback = async () => {
@@ -77,7 +80,7 @@ export async function fetchSpotifyArtist(name, token) {
     }
 
     const searchData = await searchRes.json();
-    return readTrackNames(searchData?.tracks?.items);
+    return readTracks(searchData?.tracks?.items);
   };
 
 
