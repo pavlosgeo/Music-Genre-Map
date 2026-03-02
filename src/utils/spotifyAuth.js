@@ -4,6 +4,9 @@
 const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
 const REDIRECT_URI = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
 
+const SPOTIFY_TOKEN_KEY = 'spotify_token';
+const SPOTIFY_TOKEN_EXPIRY_KEY = 'spotify_token_expires_at';
+
 // ---------- PKCE HELPERS ----------
 
 // Convert ArrayBuffer → Base64URL
@@ -83,11 +86,43 @@ export async function fetchSpotifyToken(code) {
     throw new Error('Spotify authentication failed');
   }
 
-  // Store token
-  localStorage.setItem('spotify_token', data.access_token);
+  // Store token + expiry metadata
+  localStorage.setItem(SPOTIFY_TOKEN_KEY, data.access_token);
+
+  if (typeof data.expires_in === 'number') {
+    const expiresAt = Date.now() + (data.expires_in * 1000);
+    localStorage.setItem(SPOTIFY_TOKEN_EXPIRY_KEY, String(expiresAt));
+  }
 
   // Cleanup PKCE state
   sessionStorage.removeItem('spotify_code_verifier');
 
   return data;
+}
+
+export function getSpotifyToken() {
+  const token = localStorage.getItem(SPOTIFY_TOKEN_KEY);
+
+  if (!token || token === 'undefined' || token === 'null') {
+    return null;
+  }
+
+  const expiresAtRaw = localStorage.getItem(SPOTIFY_TOKEN_EXPIRY_KEY);
+
+  if (!expiresAtRaw) {
+    return token;
+  }
+
+  const expiresAt = Number(expiresAtRaw);
+  if (Number.isNaN(expiresAt) || Date.now() >= expiresAt) {
+    localStorage.removeItem(SPOTIFY_TOKEN_KEY);
+    localStorage.removeItem(SPOTIFY_TOKEN_EXPIRY_KEY);
+    return null;
+  }
+
+  return token;
+}
+
+export function isSpotifyConnected() {
+  return Boolean(getSpotifyToken());
 }

@@ -2,11 +2,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/LandingPage.css';
-import { redirectToSpotifyAuth } from '../utils/spotifyAuth';
+import { isSpotifyConnected, redirectToSpotifyAuth } from '../utils/spotifyAuth';
 
 export default function LandingPage() {
     const navigate = useNavigate();
-    const hasSpotifyToken = Boolean(localStorage.getItem('spotify_token'));
+    const hasSpotifyToken = isSpotifyConnected();
 
     const steps = [
         {
