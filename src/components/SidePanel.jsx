@@ -1,12 +1,13 @@
 import React from 'react';
 import '../styles/SidePanel.css';
 import ArtistTag from './ArtistTag';
+import { getSpotifyToken } from '../utils/spotifyAuth';
 
 export default function SidePanel({ genre, onClose }) {
   if (!genre) return null;
 
   // 🔑 Get Spotify token (assumes you already store it elsewhere)
-  const spotifyToken = localStorage.getItem('spotify_token');
+  const spotifyToken = getSpotifyToken();
 
   return (
     <div className="side-panel">
