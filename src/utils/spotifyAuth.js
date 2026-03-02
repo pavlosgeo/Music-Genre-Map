@@ -110,7 +110,10 @@ export function getSpotifyToken() {
   const expiresAtRaw = localStorage.getItem(SPOTIFY_TOKEN_EXPIRY_KEY);
 
   if (!expiresAtRaw) {
-    return token;
+    // Older/invalid sessions may have a token without expiry metadata.
+    // Treat these as disconnected to avoid hiding login/connect UI incorrectly.
+    localStorage.removeItem(SPOTIFY_TOKEN_KEY);
+    return null;
   }
 
   const expiresAt = Number(expiresAtRaw);
