@@ -54,3 +54,26 @@ body,
 .edge--focused {
   opacity: 1;
 }
+@media (max-width: 768px) {
+  .node--dimmed {
+    opacity: 0.25;
+  }
+
+  .edge--dimmed {
+    opacity: 0.18;
+  }
+
+  .react-flow__minimap,
+  .react-flow__controls {
+    transform: scale(0.9);
+    transform-origin: bottom right;
+  }
+
+  .react-flow__controls {
+    margin: 0 8px 8px 0;
+  }
+
+  .react-flow__minimap {
+    margin: 0 8px 52px 0;
+  }
+}

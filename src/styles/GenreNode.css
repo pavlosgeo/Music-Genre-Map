@@ -241,3 +241,25 @@
     opacity: 0.9;
   }
 }
+
+@media (max-width: 768px) {
+  .genre-node {
+    width: 130px;
+    min-height: 44px;
+    border-radius: 16px;
+    padding: 8px 10px;
+    font-size: 0.78rem;
+  }
+
+  .genre-node:hover {
+    transform: none;
+  }
+
+  .genre-node.is-selected {
+    transform: scale(1.04);
+  }
+
+  .tooltip {
+    display: none !important;
+  }
+}

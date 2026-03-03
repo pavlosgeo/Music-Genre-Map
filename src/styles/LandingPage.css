@@ -228,3 +228,77 @@
         d: path("M0,0 C0,20 40,20 40,60");
     }
 }
+@media (max-width: 768px) {
+    .landing-root {
+        overflow-y: auto;
+    }
+
+    .landing-content {
+        justify-content: flex-start;
+        padding: 2.25rem 1rem 6.5rem;
+        min-height: 100vh;
+        box-sizing: border-box;
+    }
+
+    .landing-heading {
+        font-size: clamp(2rem, 9vw, 2.8rem);
+        line-height: 1.15;
+        margin-bottom: 1rem;
+    }
+
+    .landing-description {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 1.4rem;
+    }
+
+    .landing-tutorial {
+        width: 100%;
+        gap: 0.85rem;
+        margin-bottom: 1.4rem;
+    }
+
+    .landing-tutorial-step {
+        width: 100%;
+        padding: 0.85rem;
+    }
+
+    .landing-tutorial-icon {
+        font-size: 2rem;
+    }
+
+    .landing-tutorial-text strong {
+        font-size: 1rem;
+    }
+
+    .landing-tutorial-text p {
+        font-size: 0.85rem;
+    }
+
+    .landing-tutorial-arrow {
+        display: none;
+    }
+
+    .landing-actions {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+        margin-bottom: 1.4rem;
+    }
+
+    .landing-cta,
+    .spotify-login-btn {
+        width: 100%;
+        text-align: center;
+        padding: 12px 18px;
+        font-size: 0.95rem;
+    }
+
+    .landing-footer {
+        position: static;
+        width: 100%;
+        padding: 0 1rem 1.2rem;
+        box-sizing: border-box;
+    }
+}
