@@ -8,7 +8,6 @@ Explore relationships between rock and electronic genres, view their history, or
 
 <img width="1915" height="918" alt="image" src="https://github.com/user-attachments/assets/000314ee-a690-4127-9bfe-9d38a5c6f75b" />
 
-
 ---
 
 ## Features
